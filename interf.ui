@@ -6,8 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
+<<<<<<< HEAD
     <width>383</width>
     <height>386</height>
+=======
+    <width>330</width>
+    <height>408</height>
+>>>>>>> 89c4300a44e7157e3b09ea1bf47f0b403e7fe4d3
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,8 +25,13 @@
     </property>
     <property name="geometry">
      <rect>
+<<<<<<< HEAD
       <x>90</x>
       <y>10</y>
+=======
+      <x>0</x>
+      <y>0</y>
+>>>>>>> 89c4300a44e7157e3b09ea1bf47f0b403e7fe4d3
       <width>157</width>
       <height>25</height>
      </rect>
@@ -66,14 +76,23 @@
      </font>
     </property>
     <property name="text">
+<<<<<<< HEAD
      <string>Chose one of these items and date</string>
+=======
+     <string>Chose Item</string>
+>>>>>>> 89c4300a44e7157e3b09ea1bf47f0b403e7fe4d3
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
+<<<<<<< HEAD
       <x>150</x>
       <y>290</y>
+=======
+      <x>30</x>
+      <y>220</y>
+>>>>>>> 89c4300a44e7157e3b09ea1bf47f0b403e7fe4d3
       <width>56</width>
       <height>17</height>
      </rect>
@@ -127,6 +146,7 @@
      </rect>
     </property>
    </widget>
+<<<<<<< HEAD
    <zorder>listWidget</zorder>
    <zorder>label</zorder>
    <zorder>label_2</zorder>
@@ -134,13 +154,54 @@
    <zorder>pushButton</zorder>
    <zorder>lineEdit</zorder>
    <zorder>calendarWidget</zorder>
+=======
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>70</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="listWidget">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>130</y>
+      <width>111</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Transport</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Products</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Flat</string>
+     </property>
+    </item>
+   </widget>
+>>>>>>> 89c4300a44e7157e3b09ea1bf47f0b403e7fe4d3
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
+<<<<<<< HEAD
      <width>383</width>
+=======
+     <width>330</width>
+>>>>>>> 89c4300a44e7157e3b09ea1bf47f0b403e7fe4d3
      <height>18</height>
     </rect>
    </property>
