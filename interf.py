@@ -14,18 +14,48 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
+<<<<<<< HEAD
+        MainWindow.resize(383, 386)
+=======
         MainWindow.resize(330, 408)
+>>>>>>> 89c4300a44e7157e3b09ea1bf47f0b403e7fe4d3
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setEnabled(True)
+<<<<<<< HEAD
         self.label.setGeometry(QtCore.QRect(0, 0, 250, 25))
+=======
+<<<<<<< HEAD
+        self.label.setGeometry(QtCore.QRect(90, 10, 157, 25))
+=======
+        self.label.setGeometry(QtCore.QRect(0, 0, 157, 25))
+>>>>>>> 89c4300a44e7157e3b09ea1bf47f0b403e7fe4d3
+>>>>>>> b9e875b26b380f68ac1d181968504f59989b24a7
         font = QtGui.QFont()
         font.setPointSize(20)
         self.label.setFont(font)
         self.label.setTextFormat(QtCore.Qt.PlainText)
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
+<<<<<<< HEAD
+        self.label_2.setGeometry(QtCore.QRect(130, 40, 71, 20))
+        self.label_2.setObjectName("label_2")
+        self.label_3 = QtWidgets.QLabel(self.centralwidget)
+        self.label_3.setGeometry(QtCore.QRect(90, 90, 123, 10))
+        font = QtGui.QFont()
+        font.setPointSize(8)
+        self.label_3.setFont(font)
+        self.label_3.setObjectName("label_3")
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setGeometry(QtCore.QRect(150, 290, 56, 17))
+        self.pushButton.setObjectName("pushButton")
+        self.lineEdit = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit.setGeometry(QtCore.QRect(100, 60, 113, 20))
+        self.lineEdit.setObjectName("lineEdit")
+        self.listWidget = QtWidgets.QListWidget(self.centralwidget)
+        self.listWidget.setGeometry(QtCore.QRect(50, 160, 61, 51))
+=======
         self.label_2.setGeometry(QtCore.QRect(30, 50, 71, 20))
         self.label_2.setObjectName("label_2")
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
@@ -39,6 +69,7 @@ class Ui_MainWindow(object):
         self.lineEdit.setObjectName("lineEdit")
         self.listWidget = QtWidgets.QListWidget(self.centralwidget)
         self.listWidget.setGeometry(QtCore.QRect(5, 130, 111, 61))
+>>>>>>> 89c4300a44e7157e3b09ea1bf47f0b403e7fe4d3
         self.listWidget.setObjectName("listWidget")
         item = QtWidgets.QListWidgetItem()
         self.listWidget.addItem(item)
@@ -46,9 +77,25 @@ class Ui_MainWindow(object):
         self.listWidget.addItem(item)
         item = QtWidgets.QListWidgetItem()
         self.listWidget.addItem(item)
+<<<<<<< HEAD
+        self.calendarWidget = QtWidgets.QCalendarWidget(self.centralwidget)
+        self.calendarWidget.setGeometry(QtCore.QRect(150, 120, 192, 144))
+        self.calendarWidget.setObjectName("calendarWidget")
+        self.listWidget.raise_()
+        self.label.raise_()
+        self.label_2.raise_()
+        self.label_3.raise_()
+        self.pushButton.raise_()
+        self.lineEdit.raise_()
+        self.calendarWidget.raise_()
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 383, 18))
+=======
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 330, 18))
+>>>>>>> 89c4300a44e7157e3b09ea1bf47f0b403e7fe4d3
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -64,8 +111,13 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "Finance"))
         self.label.setText(_translate("MainWindow", "Financial analyser"))
         self.label_2.setText(_translate("MainWindow", "Import amoumt"))
+<<<<<<< HEAD
+        self.label_3.setText(_translate("MainWindow", "Chose one of these items and date"))
+        self.pushButton.setText(_translate("MainWindow", "Enter"))
+=======
         self.label_3.setText(_translate("MainWindow", "Chose Item"))
         self.pushButton.setText(_translate("MainWindow", "OK"))
+>>>>>>> 89c4300a44e7157e3b09ea1bf47f0b403e7fe4d3
         __sortingEnabled = self.listWidget.isSortingEnabled()
         self.listWidget.setSortingEnabled(False)
         item = self.listWidget.item(0)
