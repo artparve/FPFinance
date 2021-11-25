@@ -19,7 +19,7 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setEnabled(True)
-        self.label.setGeometry(QtCore.QRect(0, 0, 157, 25))
+        self.label.setGeometry(QtCore.QRect(0, 0, 250, 25))
         font = QtGui.QFont()
         font.setPointSize(20)
         self.label.setFont(font)
@@ -60,7 +60,8 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+
+        MainWindow.setWindowTitle(_translate("MainWindow", "Finance"))
         self.label.setText(_translate("MainWindow", "Financial analyser"))
         self.label_2.setText(_translate("MainWindow", "Import amoumt"))
         self.label_3.setText(_translate("MainWindow", "Chose Item"))
