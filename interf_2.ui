@@ -2,6 +2,14 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>800</height>
+   </rect>
+  </property>
   <property name="font">
    <font>
     <family>Segoe Print</family>
@@ -13,6 +21,15 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="iconSize">
+   <size>
+    <width>800</width>
+    <height>800</height>
+   </size>
+  </property>
+  <property name="dockOptions">
+   <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label">
     <property name="enabled">
@@ -20,15 +37,15 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>0</x>
       <y>0</y>
-      <width>400</width>
-      <height>40</height>
+      <width>800</width>
+      <height>60</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>20</pointsize>
+      <pointsize>32</pointsize>
      </font>
     </property>
     <property name="text">
@@ -45,14 +62,14 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>50</y>
-      <width>500</width>
-      <height>30</height>
+      <y>60</y>
+      <width>800</width>
+      <height>50</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <pointsize>16</pointsize>
      </font>
     </property>
     <property name="text">
@@ -65,15 +82,15 @@
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>110</y>
-      <width>400</width>
-      <height>30</height>
+      <x>0</x>
+      <y>170</y>
+      <width>800</width>
+      <height>50</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <pointsize>16</pointsize>
      </font>
     </property>
     <property name="text">
@@ -87,14 +104,14 @@
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>370</y>
-      <width>100</width>
-      <height>30</height>
+      <y>660</y>
+      <width>150</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <pointsize>24</pointsize>
      </font>
     </property>
     <property name="text">
@@ -104,16 +121,19 @@
    <widget class="QLineEdit" name="lineEdit">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>80</y>
+      <x>300</x>
+      <y>110</y>
       <width>200</width>
-      <height>30</height>
+      <height>50</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <pointsize>16</pointsize>
      </font>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QListWidget" name="listWidget">
@@ -122,10 +142,10 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>150</y>
-      <width>120</width>
-      <height>200</height>
+      <x>70</x>
+      <y>230</y>
+      <width>190</width>
+      <height>400</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -137,11 +157,29 @@
     <property name="font">
      <font>
       <family>Segoe Print</family>
-      <pointsize>12</pointsize>
+      <pointsize>16</pointsize>
      </font>
     </property>
     <property name="layoutDirection">
      <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <property name="alternatingRowColors">
+     <bool>true</bool>
+    </property>
+    <property name="horizontalScrollMode">
+     <enum>QAbstractItemView::ScrollPerItem</enum>
+    </property>
+    <property name="layoutMode">
+     <enum>QListView::SinglePass</enum>
+    </property>
+    <property name="currentRow">
+     <number>-1</number>
     </property>
     <item>
      <property name="text">
@@ -162,34 +200,74 @@
    <widget class="QCalendarWidget" name="calendarWidget">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>150</y>
-      <width>250</width>
-      <height>200</height>
+      <x>330</x>
+      <y>230</y>
+      <width>400</width>
+      <height>400</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <pointsize>16</pointsize>
      </font>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>410</y>
-      <width>100</width>
-      <height>30</height>
+      <x>400</x>
+      <y>660</y>
+      <width>200</width>
+      <height>50</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <pointsize>24</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
      </font>
     </property>
     <property name="text">
      <string>Show All</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="toolButton">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>10</y>
+      <width>50</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../../../Downloads/шестеренка_3.png</normaloff>../../../../Downloads/шестеренка_3.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>50</width>
+      <height>50</height>
+     </size>
+    </property>
+    <property name="shortcut">
+     <string notr="true"/>
+    </property>
+    <property name="autoRepeat">
+     <bool>false</bool>
+    </property>
+    <property name="popupMode">
+     <enum>QToolButton::InstantPopup</enum>
+    </property>
+    <property name="autoRaise">
+     <bool>true</bool>
     </property>
    </widget>
    <zorder>listWidget</zorder>
@@ -200,13 +278,14 @@
    <zorder>lineEdit</zorder>
    <zorder>calendarWidget</zorder>
    <zorder>pushButton_2</zorder>
+   <zorder>toolButton</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>500</width>
+     <width>800</width>
      <height>18</height>
     </rect>
    </property>
