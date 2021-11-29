@@ -16,6 +16,7 @@ from PyQt5 import uic
 import pandas as pd
 from PyQt5.QtWidgets import QApplication
 
+#---------------------------------------------создание первого окна
 Form, Window = uic.loadUiType("interf.ui")
 
 app = QApplication([])
@@ -24,41 +25,99 @@ form = Form()
 form.setupUi(window)
 window.show()
 
+#----------------------------------------------создание второго окна
+Form_all, Window_all = uic.loadUiType("interf_show.ui")
+window_all = Window_all()
+form_all = Form_all()
+form_all.setupUi(window_all)
+window_all.hide()
 
 
-def on_click():
+#-----------------------------------------------нажатие на кнопку  "Enter" (добавление покупок)
+def on_click_enter():
 	text = form.lineEdit.text()
 	date = form.calendarWidget.selectedDate()
-	columns= ['tr', 'pr', 'fl', 'amount', 'day', 'month', 'year']
+	columns= ['type', 'amount', 'date', 'd', 'm', 'y']
+
+	#создаем базу данных
 	try:
 	    file = pd.read_csv('my_by.csv')
 	except IOError as e:
 	    print(u'не удалось найти файл, так что создадим его')
-	    file = pd.DataFrame(columns= columns)
+	    file = pd.DataFrame([['Other', 'Transport Products Utilities Other', '0', 0, 0, 0]], columns=columns)
 	else:
 		print('файл уже существует')
 
+	#заполняем базу данных
+	new_data = [0]*6
 
-	new_data = [0]*7
-	for i in range(3):
-		new_data[i] = int(form.listWidget.item(i).isSelected())
-
-	new_data[4] = int(form.calendarWidget.selectedDate().day())
-	new_data[5] = int(form.calendarWidget.selectedDate().month())
-	new_data[6] = int(form.calendarWidget.selectedDate().year())
-
+	tags = [i for i in (file['amount'][0]).split()]
+	for i in range(len(tags)-1):
+		if form.listWidget.item(i).isSelected() == True:
+			new_data[0] = tags[i]
+	if new_data[0] == 0:
+		new_data[0] = 'Other'
+		
+	new_data[2] = date.toString('yyyy MM dd')
+	new_data[3] = date.day()
+	new_data[4] = date.month()
+	new_data[5] = date.year()
+	
+	#добавление если введено число
 	if text.isnumeric():
-		new_data[3] = int(text)
+		new_data[1] = int(text)
 		file = file.append(pd.DataFrame([new_data], columns=columns))
+		file.to_csv('my_by.csv', index=False)
 	else:
 		print('Не число')
 	
-	print(f'new_data: {new_data}')
 	print(f'file:\n{file}')
-	file.to_csv('my_by.csv', index=False)
 	print("You clicked ok")
 
-form.pushButton.clicked.connect(on_click)
+#-----------------------------------------------нажатие на кнопку  "Show All" (переход к окну просмотра календаря)
+def on_click_show():
+	window.hide()
+	window_all.show()
+	
+	print("You clicked Show All")
+
+#-------------------------------------------нажатие на кнопку  "Add Purchase" (переход в окно добавления покупок)
+def on_click_back():
+	window_all.hide()
+	window.show()
+	
+	print("You clicked Add Purchase")
+
+#--------------------------------------нажатие на календарь во втором окне (работает)
+def on_click_calendar():
+	
+	form_all.textEdit.clear()
+	
+	#заглядываем в базу данных
+	try:
+	    file = pd.read_csv('my_by.csv')
+	except IOError as e:
+	    form_all.textEdit.append('Информации пока нет(')
+	else:
+		data = file[file['date'] == form_all.calendarWidget.selectedDate().toString('yyyy MM dd')]
+		if len(data) == 0:
+			form_all.textEdit.append('Информации пока нет(')
+		else:
+			form_all.textEdit.append(f'{form_all.calendarWidget.selectedDate().toString("dd MMM yyyy")} Вы добавили:')
+			for t in data['type'].unique():
+				form_all.textEdit.append(f'{t}:')
+				for d in list(data[data['type']== t]['amount']):
+					form_all.textEdit.append(f'{d} руб.')
+	 
+	print("You clicked Calendar")
+
+#-------------------------------------------действия в первом окне
+form.pushButton.clicked.connect(on_click_enter)
+form.pushButton_2.clicked.connect(on_click_show)
+
+#-------------------------------------------действия во втором окне
+form_all.pushButton_2.clicked.connect(on_click_back)
+form_all.calendarWidget.clicked.connect(on_click_calendar)
 
 
 app.exec()
