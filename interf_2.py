@@ -14,6 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(501, 501)
         font = QtGui.QFont()
         font.setFamily("Segoe Print")
         MainWindow.setFont(font)
@@ -93,7 +94,7 @@ class Ui_MainWindow(object):
         self.pushButton_2.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 500, 18))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 501, 18))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
