@@ -95,13 +95,13 @@
      </font>
     </property>
     <property name="text">
-     <string>Выберите тип, карту и дату</string>
+     <string>Выберите источник дохода, карту и дату</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="enter_purchase_button">
+   <widget class="QPushButton" name="enter_income_button">
     <property name="geometry">
      <rect>
       <x>50</x>
@@ -116,7 +116,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Добавить покупку</string>
+     <string>Добавить доход</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit">
@@ -137,13 +137,13 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QListWidget" name="item_list">
+   <widget class="QListWidget" name="income_list">
     <property name="enabled">
      <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>30</x>
       <y>230</y>
       <width>150</width>
       <height>400</height>
@@ -184,24 +184,19 @@
     </property>
     <item>
      <property name="text">
-      <string>Транспорт</string>
+      <string>Зарплата</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>Продукты</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Коммуналка</string>
+      <string>Перевод</string>
      </property>
     </item>
    </widget>
    <widget class="QCalendarWidget" name="calendarWidget">
     <property name="geometry">
      <rect>
-      <x>380</x>
+      <x>370</x>
       <y>230</y>
       <width>400</width>
       <height>400</height>
@@ -322,11 +317,11 @@
      </property>
     </item>
    </widget>
-   <zorder>item_list</zorder>
+   <zorder>income_list</zorder>
    <zorder>label</zorder>
    <zorder>label_2</zorder>
    <zorder>label_3</zorder>
-   <zorder>enter_purchase_button</zorder>
+   <zorder>enter_income_button</zorder>
    <zorder>lineEdit</zorder>
    <zorder>calendarWidget</zorder>
    <zorder>show_all_button</zorder>

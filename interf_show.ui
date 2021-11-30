@@ -39,12 +39,12 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="add_purchase_button">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>650</y>
-      <width>250</width>
+      <x>30</x>
+      <y>640</y>
+      <width>350</width>
       <height>60</height>
      </rect>
     </property>
@@ -60,7 +60,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Add purchase</string>
+     <string>Добавить покупку</string>
     </property>
    </widget>
    <widget class="QTextEdit" name="textEdit">
@@ -136,6 +136,30 @@
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="add_income_button">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>640</y>
+      <width>350</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>24</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Добавить доход</string>
     </property>
    </widget>
   </widget>
