@@ -11,7 +11,7 @@
 # ui.label.setText('sdfghjk')
 
 # sys.exit(app.exec_())
-from button_functions import on_click_enter_purchase
+from button_functions import *
 from PyQt5 import uic
 import pandas as pd
 from PyQt5.QtWidgets import QApplication
