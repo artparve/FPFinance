@@ -62,9 +62,9 @@
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>259</x>
       <y>60</y>
-      <width>400</width>
+      <width>461</width>
       <height>50</height>
      </rect>
     </property>
@@ -144,8 +144,8 @@
    <widget class="QPushButton" name="show_all_button">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>670</y>
+      <x>250</x>
+      <y>680</y>
       <width>300</width>
       <height>60</height>
      </rect>
@@ -182,9 +182,9 @@
    <widget class="QLineEdit" name="add_item_field">
     <property name="geometry">
      <rect>
-      <x>310</x>
+      <x>300</x>
       <y>110</y>
-      <width>200</width>
+      <width>221</width>
       <height>50</height>
      </rect>
     </property>
@@ -195,30 +195,6 @@
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="add_purchase_button">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>670</y>
-      <width>350</width>
-      <height>60</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>24</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Добавить покупку</string>
     </property>
    </widget>
    <widget class="QListWidget" name="list_card">
@@ -276,8 +252,8 @@
     <property name="geometry">
      <rect>
       <x>300</x>
-      <y>310</y>
-      <width>200</width>
+      <y>300</y>
+      <width>231</width>
       <height>50</height>
      </rect>
     </property>
@@ -294,7 +270,7 @@
     <property name="geometry">
      <rect>
       <x>570</x>
-      <y>310</y>
+      <y>300</y>
       <width>150</width>
       <height>51</height>
      </rect>
@@ -311,9 +287,9 @@
    <widget class="QLabel" name="card_list">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>260</y>
-      <width>400</width>
+      <x>259</x>
+      <y>250</y>
+      <width>461</width>
       <height>50</height>
      </rect>
     </property>
@@ -333,7 +309,7 @@
     <property name="geometry">
      <rect>
       <x>570</x>
-      <y>380</y>
+      <y>370</y>
       <width>150</width>
       <height>51</height>
      </rect>
@@ -350,9 +326,9 @@
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>370</y>
-      <width>400</width>
+      <x>259</x>
+      <y>360</y>
+      <width>311</width>
       <height>50</height>
      </rect>
     </property>
@@ -362,7 +338,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Выберите карту для удаления</string>
+     <string>Выберите карту</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -371,9 +347,9 @@
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>180</y>
-      <width>400</width>
+      <x>259</x>
+      <y>170</y>
+      <width>311</width>
       <height>50</height>
      </rect>
     </property>
@@ -383,7 +359,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Выберите тип  для удаления</string>
+     <string>Выберите тип</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -461,9 +437,9 @@
    <widget class="QLabel" name="card_list_2">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>440</y>
-      <width>400</width>
+      <x>259</x>
+      <y>450</y>
+      <width>461</width>
       <height>50</height>
      </rect>
     </property>
@@ -482,9 +458,9 @@
    <widget class="QLineEdit" name="add_income_field">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>490</y>
-      <width>200</width>
+      <x>300</x>
+      <y>500</y>
+      <width>231</width>
       <height>50</height>
      </rect>
     </property>
@@ -500,7 +476,7 @@
    <widget class="QPushButton" name="add_income_button">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>570</x>
       <y>500</y>
       <width>150</width>
       <height>51</height>
@@ -518,7 +494,7 @@
    <widget class="QPushButton" name="delete_income_button">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>570</x>
       <y>570</y>
       <width>150</width>
       <height>51</height>
@@ -533,22 +509,88 @@
      <string>Удалить</string>
     </property>
    </widget>
-   <widget class="QTextBrowser" name="textBrowser">
+   <widget class="QLabel" name="card_list_3">
     <property name="geometry">
      <rect>
-      <x>280</x>
+      <x>259</x>
       <y>560</y>
-      <width>256</width>
-      <height>70</height>
+      <width>311</width>
+      <height>50</height>
      </rect>
     </property>
-    <property name="html">
-     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe Print'; font-size:16pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Выберите источник &lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;дохода для удаления&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Выберите источник дохода</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="card_list_4">
+    <property name="geometry">
+     <rect>
+      <x>259</x>
+      <y>580</y>
+      <width>310</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>для удаления</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="card_list_5">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>380</y>
+      <width>310</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>для удаления</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="card_list_6">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>190</y>
+      <width>310</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>для удаления</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <zorder>item_list</zorder>
@@ -557,7 +599,6 @@ p, li { white-space: pre-wrap; }
    <zorder>show_all_button</zorder>
    <zorder>add_item_button</zorder>
    <zorder>add_item_field</zorder>
-   <zorder>add_purchase_button</zorder>
    <zorder>list_card</zorder>
    <zorder>add_card_field</zorder>
    <zorder>add_card_button</zorder>
@@ -571,7 +612,10 @@ p, li { white-space: pre-wrap; }
    <zorder>add_income_field</zorder>
    <zorder>add_income_button</zorder>
    <zorder>delete_income_button</zorder>
-   <zorder>textBrowser</zorder>
+   <zorder>card_list_3</zorder>
+   <zorder>card_list_4</zorder>
+   <zorder>card_list_5</zorder>
+   <zorder>card_list_6</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -579,7 +623,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>34</height>
+     <height>18</height>
     </rect>
    </property>
   </widget>

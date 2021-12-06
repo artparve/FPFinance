@@ -36,7 +36,6 @@ form_all.calendarWidget.clicked.connect(on_click_calendar)
 form_all.toolButton.clicked.connect(on_click_tool)
 
 #-------------------------------------------действия в окне настроек
-form_tool.add_purchase_button.clicked.connect(on_click_purchase)
 form_tool.show_all_button.clicked.connect(on_click_show)
 
 
