@@ -15,13 +15,15 @@
 from PyQt5 import uic
 # from main import *
 import pandas as pd
+from windows import *
 from PyQt5.QtWidgets import QApplication
 
 #Общие кнопки
 #-------------------------------------------переход к окну добавления дохода)
 def on_click_income():
 	window.hide()
-	Window_all.hide()
+	window_all.hide()
+	window_tool.hide()
 	window_inc.show()
 	
 	print("You clicked Add income")
@@ -30,6 +32,7 @@ def on_click_income():
 def on_click_show():
 	window.hide()
 	window_inc.hide()
+	window_tool.hide()
 	window_all.show()
 	
 	print("You clicked Show All")
@@ -37,7 +40,8 @@ def on_click_show():
 #-------------------------------------------переход в окно добавления покупок
 def on_click_purchase():
 	window_all.hide()
-
+	window_inc.hide()
+	window_tool.hide()
 	window.show()
 	
 	print("You clicked Add Purchase")
@@ -47,7 +51,7 @@ def on_click_tool():
 	
 	window_all.hide()
 	window.hide()
-	window_tool.hide()
+	window_inc.hide()
 	window_tool.show()
 	 
 	print("You clicked tool")
