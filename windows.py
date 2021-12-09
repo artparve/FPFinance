@@ -12,7 +12,7 @@ app = QApplication([])
 window = Window()
 form = Form()
 form.setupUi(window)
-window.show()
+window.hide()
 
 #----------------------------------------------создание окна календаря
 Form_all, Window_all = uic.loadUiType("interf_show.ui")
@@ -26,7 +26,7 @@ Form_tool, Window_tool = uic.loadUiType("interf_tool.ui")
 window_tool = Window_tool()
 form_tool = Form_tool()
 form_tool.setupUi(window_tool)
-window_tool.hide()
+window_tool.show()
 
 #----------------------------------------------создание окна предупреждения
 Form_w, Window_w = uic.loadUiType("warning.ui")
