@@ -38,10 +38,10 @@ form_all.toolButton.clicked.connect(on_click_tool)
 #-------------------------------------------действия в окне настроек
 form_tool.show_all_button.clicked.connect(on_click_show)
 form_tool.add_income_button.clicked.connect(add_new_income)
-form_tool.add_card_button.clicked.connect(on_click_show)
-form_tool.add_item_button.clicked.connect(on_click_show)
+form_tool.add_card_button.clicked.connect(add_new_card)
+form_tool.add_item_button.clicked.connect(add_new_item)
 form_tool.delete_income_button.clicked.connect(on_click_show)
-form_tool.delete_item_button.clicked.connect(on_click_show)
+form_tool.delete_item_button.clicked.connect(delete_useless_income)
 form_tool.delete_card_button.clicked.connect(on_click_show)
 
 
