@@ -69,29 +69,38 @@ def on_click_enter_purchase():
 	    file = pd.read_csv('my_by.csv')
 	except IOError as e:
 	    print(u'не удалось найти файл, так что создадим его')
-	    file = pd.DataFrame([['Транспорт Продукты Комуналка Другое', 'Карта 1', '', 'base', 0, 0, 0]], columns=columns)
+	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'base', 0, 0, 0, ''], 
+	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'user', 0, 0, 0, '']], columns=columns)
 	else:
 		print('файл уже существует')
 
 	print(file['type'][0])
 	#заполняем базу данных
-	new_data = [0]*6
+	new_data = [0]*9
 
-	tags = [i for i in (file['amount'][0]).split()]
-	for i in range(len(tags)-1):
-		if form.item_list.item(i).isSelected() == True:
-			new_data[0] = tags[i]
-	if new_data[0] == 0:
-		new_data[0] = 'Other'
+	item = form.item_list.selectedItems()[0].text()
+	print(item)
+	if item == '':
+		new_data[0] = 'Другое'
+	else:
+		' '.join(item)
+
+	card = form.card_list.selectedItems()[0].text()
+	print(card)
+	if card == '':
+		new_data[1] = 'Другое'
+	else:
+		' '.join(card)
+
 		
-	new_data[2] = date.toString('yyyy MM dd')
-	new_data[3] = date.day()
-	new_data[4] = date.month()
-	new_data[5] = date.year()
+	new_data[4] = date.toString('yyyy MM dd')
+	new_data[5] = date.day()
+	new_data[6] = date.month()
+	new_data[7] = date.year()
 	
 	#добавление если введено число
 	if text.isnumeric():
-		new_data[1] = int(text)
+		new_data[3] = -int(text)
 		file = file.append(pd.DataFrame([new_data], columns=columns))
 		file.to_csv('my_by.csv', index=False)
 	else:
@@ -104,8 +113,8 @@ def on_click_enter_purchase():
 #Кнопки окна добавления дохода
 #-----------------------------------------------нажатие на кнопку  "Add_income" (добавление дохода)
 def on_click_enter_income():
-	text = form.lineEdit.text()
-	date = form.calendarWidget.selectedDate()
+	text = form_inc.lineEdit.text()
+	date = form_inc.calendarWidget.selectedDate()
 	columns= ['type','card','income','amount', 'date', 'd', 'm', 'y', 'comment']
 
 	#создаем базу данных
@@ -120,23 +129,31 @@ def on_click_enter_income():
 
 	print(file['type'][0])
 	#заполняем базу данных
-	new_data = [0]*6
+	new_data = [0]*9
 
-	tags = [i for i in (file['amount'][0]).split()]
-	for i in range(len(tags)-1):
-		if form.listWidget.item(i).isSelected() == True:
-			new_data[0] = tags[i]
-	if new_data[0] == 0:
-		new_data[0] = 'Other'
+	item = form_inc.income_list.selectedItems()[0].text()
+	print(item)
+	if item == '':
+		new_data[0] = 'Другое'
+	else:
+		' '.join(item)
+
+	card = form_inc.card_list.selectedItems()[0].text()
+	print(card)
+	if card == '':
+		new_data[1] = 'Другое'
+	else:
+		' '.join(card)
+
 		
-	new_data[2] = date.toString('yyyy MM dd')
-	new_data[3] = date.day()
-	new_data[4] = date.month()
-	new_data[5] = date.year()
+	new_data[4] = date.toString('yyyy MM dd')
+	new_data[5] = date.day()
+	new_data[6] = date.month()
+	new_data[7] = date.year()
 	
 	#добавление если введено число
 	if text.isnumeric():
-		new_data[1] = int(text)
+		new_data[3] = int(text)
 		file = file.append(pd.DataFrame([new_data], columns=columns))
 		file.to_csv('my_by.csv', index=False)
 	else:
@@ -316,7 +333,9 @@ def delete_useless_item():
 
 def delete_useless_income():
 		for i in form_tool.item_list.selectedItems():
-			print(i)
+			print(i.text())
+		
+
 
 def delete_useless_incme():
 	
