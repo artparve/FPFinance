@@ -1,14 +1,14 @@
-
-
-from PyQt5 import uic
 import pandas as pd
+from PyQt5 import uic, QtWidgets
 from PyQt5.QtWidgets import QApplication
+from graphics import *
 
 #Создание окон
 #---------------------------------------------создание окна добавления покупок
 Form, Window = uic.loadUiType("interf_2.ui")
 
 app = QApplication([])
+size = app.primaryScreen().size()
 window = Window()
 form = Form()
 form.setupUi(window)
@@ -20,6 +20,8 @@ window_all = Window_all()
 form_all = Form_all()
 form_all.setupUi(window_all)
 window_all.hide()
+graphicsInterfShow(window_all, size)
+# window_all.resize(size.width(), size.height())
 
 #----------------------------------------------создание окна настроек
 Form_tool, Window_tool = uic.loadUiType("interf_tool.ui")
