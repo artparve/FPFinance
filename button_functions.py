@@ -13,7 +13,6 @@
 # sys.exit(app.exec_())
 
 from PyQt5 import uic
-# from main import *
 import pandas as pd
 from windows import *
 from PyQt5.QtWidgets import QApplication

@@ -20,7 +20,7 @@ Form_all, Window_all = uic.loadUiType("interf_show.ui")
 window_all = Window_all()
 form_all = Form_all()
 form_all.setupUi(window_all)
-graphicsInterfShow(window_all, size)
+graphicsInterfShow(form_all, window_all, size)
 window_all.hide()
 
 #----------------------------------------------создание окна настроек
