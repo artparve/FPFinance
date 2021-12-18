@@ -12,7 +12,7 @@ size = app.primaryScreen().size()
 window = Window()
 form = Form()
 form.setupUi(window)
-graphicsInterf2(window, size)
+graphicsInterf2(form, window, size)
 window.hide()
 
 #----------------------------------------------создание окна календаря
