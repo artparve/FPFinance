@@ -13,18 +13,36 @@
 # sys.exit(app.exec_())
 
 from PyQt5 import uic
-# from main import *
 import pandas as pd
 from windows import *
 from PyQt5.QtWidgets import QApplication
 
+columns= ['type','card','income','amount', 'date', 'd', 'm', 'y', 'comment']
 #Общие кнопки
 #-------------------------------------------переход к окну добавления дохода)
 def on_click_income():
+	
 	window.hide()
 	window_all.hide()
 	window_tool.hide()
 	window_inc.show()
+
+	#обновление из базы
+
+	try:
+	    file = pd.read_csv('my_by.csv')
+	except IOError as e:
+	    print(u'не удалось найти файл, так что создадим его')
+	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'base', 0, 0, 0, ''], 
+	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'user', 0, 0, 0, '']], columns=columns)
+	else:
+		user = (file[file["date"] == "user"].values)[0]
+	
+		form_inc.card_list.clear()
+		form_inc.card_list.addItems(user[1].split('|'))
+		form_inc.income_list.clear()
+		form_inc.income_list.addItems(user[2].split('|'))
+
 	
 	print("You clicked Add income")
 
@@ -34,7 +52,6 @@ def on_click_show():
 	window_inc.hide()
 	window_tool.hide()
 	window_all.show()
-
 	
 	print("You clicked Show All")
 
@@ -44,6 +61,20 @@ def on_click_purchase():
 	window_inc.hide()
 	window_tool.hide()
 	window.show()
+
+	#обновление из базы
+	try:
+	    file = pd.read_csv('my_by.csv')
+	except IOError as e:
+	    print(u'не удалось найти файл, так что создадим его')
+	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'base', 0, 0, 0, ''], \
+	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'user', 0, 0, 0, '']], columns=columns)
+	else:
+		user = (file[file["date"] == "user"].values)[0]
+		form.card_list.clear()
+		form.card_list.addItems(user[1].split('|'))
+		form.item_list.clear()
+		form.item_list.addItems(user[0].split('|'))
 	
 	print("You clicked Add Purchase")
 
@@ -53,6 +84,23 @@ def on_click_tool():
 	window.hide()
 	window_inc.hide()
 	window_tool.show()
+
+	#обновление из базы
+	try:
+	    file = pd.read_csv('my_by.csv')
+	except IOError as e:
+	    print(u'не удалось найти файл, так что создадим его')
+	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'base', 0, 0, 0, ''], 
+	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'user', 0, 0, 0, '']], columns=columns)
+	else:
+		user = (file[file["date"] == "user"].values)[0]
+
+		form_tool.card_list.clear()
+		form_tool.card_list.addItems(user[1].split('|'))
+		form_tool.income_list.clear()
+		form_tool.income_list.addItems(user[2].split('|'))
+		form_tool.item_list.clear()
+		form_tool.item_list.addItems(user[0].split('|'))
 	 
 	print("You clicked tool")
 #--------------------------------------------------------------
@@ -83,14 +131,14 @@ def on_click_enter_purchase():
 	if item == '':
 		new_data[0] = 'Другое'
 	else:
-		' '.join(item)
+		new_data[0] = item
 
 	card = form.card_list.selectedItems()[0].text()
 	print(card)
 	if card == '':
 		new_data[1] = 'Другое'
 	else:
-		' '.join(card)
+		new_data[1] = card
 
 		
 	new_data[4] = date.toString('yyyy MM dd')
@@ -105,6 +153,8 @@ def on_click_enter_purchase():
 		file.to_csv('my_by.csv', index=False)
 	else:
 		print('Не число')
+
+	form.lineEdit.clear()
 	
 	print(f'file:\n{file}')
 	print("You clicked ok")
@@ -383,6 +433,8 @@ def delete_useless_card():
 					form_all.textEdit.append(f'{d} руб.')
 	 
 	print("You clicked Calendar")
+
+
 
 
 
