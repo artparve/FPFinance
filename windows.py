@@ -29,7 +29,7 @@ Form_tool, Window_tool = uic.loadUiType("interf_tool.ui")
 window_tool = Window_tool()
 form_tool = Form_tool()
 form_tool.setupUi(window_tool)
-graphicsInterfTool(window_tool, size)
+graphicsInterfTool(form_tool, window_tool, size)
 window_tool.show()
 
 #----------------------------------------------создание окна предупреждения
@@ -45,6 +45,6 @@ Form_inc, Window_inc = uic.loadUiType("interf_income.ui")
 window_inc = Window_inc()
 form_inc = Form_inc()
 form_inc.setupUi(window_inc)
-graphicsInterfInc(window_inc, size)
+graphicsInterfInc(form_inc, window_inc, size)
 window_inc.hide()
 #------------------------------------------------

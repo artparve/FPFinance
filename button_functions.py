@@ -95,8 +95,8 @@ def on_click_tool():
 	else:
 		user = (file[file["date"] == "user"].values)[0]
 
-		form_tool.card_list.clear()
-		form_tool.card_list.addItems(user[1].split('|'))
+		form_tool.list_card.clear()
+		form_tool.list_card.addItems(user[1].split('|'))
 		form_tool.income_list.clear()
 		form_tool.income_list.addItems(user[2].split('|'))
 		form_tool.item_list.clear()
@@ -155,6 +155,7 @@ def on_click_enter_purchase():
 		print('Не число')
 
 	form.lineEdit.clear()
+	form.item_list.clear_()
 	
 	print(f'file:\n{file}')
 	print("You clicked ok")
