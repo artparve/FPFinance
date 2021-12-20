@@ -5,7 +5,7 @@ from graphics import *
 
 #Создание окон
 #---------------------------------------------создание окна добавления покупок
-Form, Window = uic.loadUiType("interf_2.ui")
+Form, Window = uic.loadUiType("interf_both.ui")
 
 app = QApplication([])
 size = app.primaryScreen().size()
@@ -16,7 +16,7 @@ graphicsInterf2(form, window, size)
 window.hide()
 
 #----------------------------------------------создание окна календаря
-Form_all, Window_all = uic.loadUiType("interf_show.ui")
+Form_all, Window_all = uic.loadUiType("interf_show_graph.ui")
 window_all = Window_all()
 form_all = Form_all()
 form_all.setupUi(window_all)
