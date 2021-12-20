@@ -30,7 +30,7 @@ form_inc.toolButton.clicked.connect(on_click_tool)
 
 
 #-------------------------------------------действия в окне с календарем
-form_all.add_income_button.clicked.connect(on_click_income)
+#form_all.add_income_button.clicked.connect(on_click_income)
 form_all.add_purchase_button.clicked.connect(on_click_purchase)
 form_all.calendarWidget.clicked.connect(on_click_calendar)
 form_all.toolButton.clicked.connect(on_click_tool)
