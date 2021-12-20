@@ -155,7 +155,7 @@ def on_click_enter_purchase():
 		print('Не число')
 
 	form.lineEdit.clear()
-	form.item_list.clear_()
+	form.item_list.hide()
 	
 	print(f'file:\n{file}')
 	print("You clicked ok")
