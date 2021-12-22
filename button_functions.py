@@ -34,6 +34,7 @@ def on_click_show():
 	else:
 		data = file[file['date'] == form_all.calendarWidget.selectedDate().toString('yyyy MM dd')]
 		if len(data) == 0:
+			form_all.textEdit.clear()
 			form_all.textEdit.append('Информации пока нет(')
 		else:
 			form_all.textEdit.append(f'{form_all.calendarWidget.selectedDate().toString("dd MMM yyyy")} Вы добавили:')
@@ -123,7 +124,7 @@ def on_click_enter_purchase():
 
 	#создаем базу данных
 	try:
-	    file = pd.read_csv('my_by.csv')
+		file = pd.read_csv('my_by.csv')
 	except IOError as e:
 	    print(u'не удалось найти файл, так что создадим его')
 	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'base', 0, 0, 0, ''], 
@@ -258,8 +259,9 @@ def on_click_change():
 #--------------------------------------нажатие на календарь во втором окне (работает)
 def on_click_calendar():
 	
-	form_all.textEdit.clear()
-	
+	form_all.textEdit.undo()
+
+	print(form_all.textEdit.text())
 	#заглядываем в базу данных
 	try:
 	    file = pd.read_csv('my_by.csv')

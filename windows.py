@@ -22,23 +22,17 @@ form_all = Form_all()
 form_all.setupUi(window_all)
 window_all.show()
 graphicsInterfShow(form_all, window_all, size)
-
-#заглядываем в базу данных
+columns= ['type','card','income','amount', 'date', 'd', 'm', 'y', 'comment']
+#обновление из базы
 try:
     file = pd.read_csv('my_by.csv')
 except IOError as e:
-    form_all.textEdit.append('Информации пока нет(')
+    print(u'не удалось найти файл, так что создадим его')
+    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'base', 0, 0, 0, ''], \
+    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'user', 0, 0, 0, '']], columns=columns)
+    file.to_csv('my_by.csv', index=False)
 else:
-	data = file[file['date'] == form_all.calendarWidget.selectedDate().toString('yyyy MM dd')]
-	if len(data) == 0:
-		form_all.textEdit.append('Информации пока нет(')
-	else:
-		form_all.textEdit.append(f'{form_all.calendarWidget.selectedDate().toString("dd MMM yyyy")} Вы добавили:')
-		for t in data['type'].unique():
-			form_all.textEdit.append(f'{t}:')
-			for d in list(data[data['type']== t]['amount']):
-				form_all.textEdit.append(f'{d} руб.')
-
+	print('база уже есть')
 
 window_all.show()
 
