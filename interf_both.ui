@@ -74,7 +74,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Добавить сумму</string>
+     <string>Введите сумму</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -95,7 +95,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Выберите тип, карту и дату</string>
+     <string>Выберите тип и карту</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -411,7 +411,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Выберите тип, карту и дату</string>
+     <string>Выберите дату</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>

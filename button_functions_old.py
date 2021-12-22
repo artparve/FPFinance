@@ -18,8 +18,34 @@ from windows import *
 from PyQt5.QtWidgets import QApplication
 
 columns= ['type','card','income','amount', 'date', 'd', 'm', 'y', 'comment']
-
 #Общие кнопки
+#-------------------------------------------переход к окну добавления дохода)
+def on_click_income():
+	
+	window.hide()
+	window_all.hide()
+	window_tool.hide()
+	window_inc.show()
+
+	#обновление из базы
+
+	try:
+	    file = pd.read_csv('my_by.csv')
+	except IOError as e:
+	    print(u'не удалось найти файл, так что создадим его')
+	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'base', 0, 0, 0, ''], 
+	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'user', 0, 0, 0, '']], columns=columns)
+	else:
+		user = (file[file["date"] == "user"].values)[0]
+	
+		form_inc.card_list.clear()
+		form_inc.card_list.addItems(user[1].split('|'))
+		form_inc.income_list.clear()
+		form_inc.income_list.addItems(user[2].split('|'))
+
+	
+	print("You clicked Add income")
+
 #-------------------------------------------переход к окну просмотра календаря
 def on_click_show():
 	window.hide()
@@ -29,7 +55,7 @@ def on_click_show():
 	
 	print("You clicked Show All")
 
-#-------------------------------------------переход в окно добавления
+#-------------------------------------------переход в окно добавления покупок
 def on_click_purchase():
 	window_all.hide()
 	window_inc.hide()
@@ -45,24 +71,12 @@ def on_click_purchase():
 	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'user', 0, 0, 0, '']], columns=columns)
 	else:
 		user = (file[file["date"] == "user"].values)[0]
-		form.income_list.clear()
-		form.income_list.addItems(user[2].split('|'))
 		form.card_list.clear()
 		form.card_list.addItems(user[1].split('|'))
 		form.item_list.clear()
 		form.item_list.addItems(user[0].split('|'))
-
-	form.item_list.show()
-	form.income_list.hide()
-	form.label_3.clear()
-	form.label_3.setText('Выберите тип и карту')
-
-	form.label_4.clear()
-	form.label_4.setText('Выберите дату')
-	form.label_2.clear()
-	form.label_2.setText('Введите сумму')
-
-	print("You clicked Add")
+	
+	print("You clicked Add Purchase")
 
 #-------------------------------------------переход в окно настроек
 def on_click_tool():
@@ -91,16 +105,7 @@ def on_click_tool():
 	print("You clicked tool")
 #--------------------------------------------------------------
 
-#Кнопки окна добавления
-
-#-----------------------------------------------нажатие на кнопку  "Add" (добавление)
-def on_click_enter_purchase():
-	if form.label_3.text() == 'Выберите тип и карту':
-		on_click_enter_purchase()
-	else:
-		on_click_enter_income()
-
-
+#Кнопки окна добавления покупок
 #-----------------------------------------------нажатие на кнопку  "Add_Purchase" (добавление покупок)
 def on_click_enter_purchase():
 	text = form.lineEdit.text()
@@ -112,7 +117,7 @@ def on_click_enter_purchase():
 	    file = pd.read_csv('my_by.csv')
 	except IOError as e:
 	    print(u'не удалось найти файл, так что создадим его')
-	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'base', 0, 0, 0, ''], 
+	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'base', 0, 0, 0, ''], 
 	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'user', 0, 0, 0, '']], columns=columns)
 	else:
 		print('файл уже существует')
@@ -135,37 +140,32 @@ def on_click_enter_purchase():
 	else:
 		new_data[1] = card
 
-	
-	if date == '':
-		form.label_3.clear()
-		form.label_3.setText('ВЫБЕРИТЕ ДАТУ')
-	else:
-		new_data[4] = date.toString('yyyy MM dd')
-		new_data[5] = date.day()
-		new_data[6] = date.month()
-		new_data[7] = date.year()
+		
+	new_data[4] = date.toString('yyyy MM dd')
+	new_data[5] = date.day()
+	new_data[6] = date.month()
+	new_data[7] = date.year()
 	
 	#добавление если введено число
-	if text.isnumeric() and new_data[4] != 0 :
+	if text.isnumeric():
 		new_data[3] = -int(text)
 		file = file.append(pd.DataFrame([new_data], columns=columns))
 		file.to_csv('my_by.csv', index=False)
-	elif form.label_3.text() != 'ВЫБЕРИТЕ ДАТУ':
-		form.label_2.clear()
-		form.label_2.setText('Надо число')
+	else:
+		print('Не число')
 
 	form.lineEdit.clear()
 	form.item_list.hide()
 	
 	print(f'file:\n{file}')
 	print("You clicked ok")
-#------------------------------------------------------	
+#---------------------------------------------------------	
 
-
+#Кнопки окна добавления дохода
 #-----------------------------------------------нажатие на кнопку  "Add_income" (добавление дохода)
 def on_click_enter_income():
-	text = form.lineEdit.text()
-	date = form.calendarWidget.selectedDate()
+	text = form_inc.lineEdit.text()
+	date = form_inc.calendarWidget.selectedDate()
 	columns= ['type','card','income','amount', 'date', 'd', 'm', 'y', 'comment']
 
 	#создаем базу данных
@@ -182,14 +182,14 @@ def on_click_enter_income():
 	#заполняем базу данных
 	new_data = [0]*9
 
-	item = form.income_list.selectedItems()[0].text()
+	item = form_inc.income_list.selectedItems()[0].text()
 	print(item)
 	if item == '':
 		new_data[0] = 'Другое'
 	else:
 		' '.join(item)
 
-	card = form.card_list.selectedItems()[0].text()
+	card = form_inc.card_list.selectedItems()[0].text()
 	print(card)
 	if card == '':
 		new_data[1] = 'Другое'
@@ -304,9 +304,11 @@ def add_new_card():
 		print(user)
 		file.to_csv('my_by.csv', index=False)
 	form_tool.list_card.clear()
+	form_inc.card_list.clear()
 	form.card_list.clear()
 	form.card_list.addItems(user[1].split('|'))
 	form_tool.list_card.addItems(user[1].split('|'))
+	form_inc.card_list.addItems(user[1].split('|'))
 
 	print("You added a new card")
 #form_tool.add_item_button.clicked.connect(on_click_show)
@@ -338,9 +340,9 @@ def add_new_income():
 		print(user)
 		file.to_csv('my_by.csv', index=False)
 	form_tool.income_list.clear()
-	form.income_list.clear()
+	form_inc.income_list.clear()
 	form_tool.income_list.addItems(user[2].split('|'))
-	form.income_list.addItems(user[2].split('|'))
+	form_inc.income_list.addItems(user[2].split('|'))
 
 	print("You added a new income")
 #form_tool.delete_income_button.clicked.connect(on_click_show)
