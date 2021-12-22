@@ -121,19 +121,17 @@ def on_click_enter_purchase():
 	#заполняем базу данных
 	new_data = [0]*9
 
-	item = form.item_list.selectedItems()[0].text()
-	print(item)
-	if item == '':
+
+	if form.item_list.selectedItems() == []:
 		new_data[0] = 'Другое'
 	else:
-		new_data[0] = item
+		new_data[0] =  form.item_list.selectedItems()[0].text()
 
-	card = form.card_list.selectedItems()[0].text()
-	print(card)
-	if card == '':
+
+	if form.card_list.selectedItems() == []:
 		new_data[1] = 'Другое'
 	else:
-		new_data[1] = card
+		new_data[1] = form.card_list.selectedItems()[0].text()
 
 	
 	if date == '':
@@ -150,12 +148,17 @@ def on_click_enter_purchase():
 		new_data[3] = -int(text)
 		file = file.append(pd.DataFrame([new_data], columns=columns))
 		file.to_csv('my_by.csv', index=False)
+		form.label_2.clear()
+		form.label_2.setStyleSheet("font-weight: family; color: black")
+		form.label_2.setText('Введите сумму')
 	elif form.label_3.text() != 'ВЫБЕРИТЕ ДАТУ':
 		form.label_2.clear()
+		form.label_2.setStyleSheet("font-weight: bold; color: red")
 		form.label_2.setText('Надо число')
 
 	form.lineEdit.clear()
-	form.item_list.hide()
+
+
 	
 	print(f'file:\n{file}')
 	print("You clicked ok")
@@ -182,33 +185,39 @@ def on_click_enter_income():
 	#заполняем базу данных
 	new_data = [0]*9
 
-	item = form.income_list.selectedItems()[0].text()
-	print(item)
-	if item == '':
-		new_data[0] = 'Другое'
+	if form.income_list.selectedItems() == []:
+		new_data[2] = 'Другое'
 	else:
-		' '.join(item)
+		new_data[2] =  form.income_list.selectedItems()[0].text()
 
-	card = form.card_list.selectedItems()[0].text()
-	print(card)
-	if card == '':
+
+	if form.card_list.selectedItems() == []:
 		new_data[1] = 'Другое'
 	else:
-		' '.join(card)
+		new_data[1] = form.card_list.selectedItems()[0].text()
 
 		
-	new_data[4] = date.toString('yyyy MM dd')
-	new_data[5] = date.day()
-	new_data[6] = date.month()
-	new_data[7] = date.year()
+	if date == '':
+		form.label_3.clear()
+		form.label_3.setText('ВЫБЕРИТЕ ДАТУ')
+	else:
+		new_data[4] = date.toString('yyyy MM dd')
+		new_data[5] = date.day()
+		new_data[6] = date.month()
+		new_data[7] = date.year()
 	
 	#добавление если введено число
-	if text.isnumeric():
+	if text.isnumeric() and new_data[4] != 0 :
 		new_data[3] = int(text)
 		file = file.append(pd.DataFrame([new_data], columns=columns))
 		file.to_csv('my_by.csv', index=False)
-	else:
-		print('Не число')
+		form.label_2.clear()
+		form.label_2.setStyleSheet("font-weight: family; color: black")
+		form.label_2.setText('Введите сумму')
+	elif form.label_3.text() != 'ВЫБЕРИТЕ ДАТУ':
+		form.label_2.clear()
+		form.label_2.setStyleSheet("font-weight: bold; color: red")
+		form.label_2.setText('Надо число')
 	
 	print(f'file:\n{file}')
 	print("You clicked ok")
