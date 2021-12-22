@@ -55,7 +55,7 @@ def on_click_purchase():
 	form.item_list.show()
 	form.income_list.hide()
 	form.label_3.clear()
-	form.label_3.setText('Выберите тип и карту')
+	form.label_3.setText('Выберите тип покупки и карту')
 
 	form.label_4.clear()
 	form.label_4.setText('Выберите дату')
@@ -95,7 +95,7 @@ def on_click_tool():
 
 #-----------------------------------------------нажатие на кнопку  "Add" (добавление)
 def on_click_enter_purchase():
-	if form.label_3.text() == 'Выберите тип и карту':
+	if form.label_3.text() == 'Выберите тип покупки и карту':
 		on_click_enter_purchase()
 	else:
 		on_click_enter_income()
@@ -214,6 +214,23 @@ def on_click_enter_income():
 	print("You clicked ok")
 #---------------------------------------------------------
 
+#-----------------------------------------------нажатие на кнопку  "Поменять"
+def on_click_change():
+	if form.label_3.text() == 'Выберите тип покупки и карту':
+		form.label_3.clear()
+		form.label_3.setText('Выберите источник дохода и карту')
+		form.enter_purchase_button.setText('Добавить доход')
+		form.income_list.show()
+		form.item_list.hide()
+	else:
+		form.label_3.clear()
+		form.label_3.setText('Выберите тип покупки и карту')
+		form.enter_purchase_button.setText('Добавить покупку')
+		form.item_list.show()
+		form.income_list.hide()	
+	print("You clicked Change")
+#---------------------------------------------------------
+
 #Кнопки окна календаря
 #--------------------------------------нажатие на календарь во втором окне (работает)
 def on_click_calendar():
@@ -238,6 +255,31 @@ def on_click_calendar():
 	 
 	print("You clicked Calendar")
 #---------------------------------------------------------
+
+#--------------------------------------нажатие на календарь во втором окне (работает)
+def on_click_clendar():
+	
+	form_all.textEdit.clear()
+	
+	#заглядываем в базу данных
+	try:
+	    file = pd.read_csv('my_by.csv')
+	except IOError as e:
+	    form_all.textEdit.append('Информации пока нет(')
+	else:
+		data = file[file['date'] == form_all.calendarWidget.selectedDate().toString('yyyy MM dd')]
+		if len(data) == 0:
+			form_all.textEdit.append('Информации пока нет(')
+		else:
+			form_all.textEdit.append(f'{form_all.calendarWidget.selectedDate().toString("dd MMM yyyy")} Вы добавили:')
+			for t in data['type'].unique():
+				form_all.textEdit.append(f'{t}:')
+				for d in list(data[data['type']== t]['amount']):
+					form_all.textEdit.append(f'{d} руб.')
+	 
+	print("You clicked Calendar")
+#---------------------------------------------------------
+
 #Кнопки окна настроек
 
 #---------------------------------------------------------

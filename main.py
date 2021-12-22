@@ -22,6 +22,7 @@ from PyQt5.QtWidgets import QApplication
 form.enter_purchase_button.clicked.connect(on_click_enter_purchase)
 form.show_all_button.clicked.connect(on_click_show)
 form.toolButton.clicked.connect(on_click_tool)
+form.enter_purchase_button_2.clicked.connect(on_click_change)
 
 #-------------------------------------------действия в окне добавления дохода
 form_inc.enter_income_button.clicked.connect(on_click_enter_purchase)
@@ -43,12 +44,5 @@ form_tool.add_item_button.clicked.connect(add_new_item)
 form_tool.delete_income_button.clicked.connect(on_click_show)
 form_tool.delete_item_button.clicked.connect(delete_useless_income)
 form_tool.delete_card_button.clicked.connect(on_click_show)
-
-
-
-
-
-
-
 
 app.exec()
