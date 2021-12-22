@@ -169,7 +169,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Добавить информацию</string>
+     <string>Расходы</string>
     </property>
    </widget>
    <widget class="QPushButton" name="graph_income_button">
@@ -193,7 +193,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Добавить информацию</string>
+     <string>Доходы</string>
     </property>
    </widget>
   </widget>

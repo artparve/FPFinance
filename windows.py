@@ -21,7 +21,7 @@ window_all = Window_all()
 form_all = Form_all()
 form_all.setupUi(window_all)
 window_all.show()
-#graphicsInterfShow(form_all, window_all, size)
+graphicsInterfShow(form_all, window_all, size)
 window_all.hide()
 
 #----------------------------------------------создание окна настроек
@@ -29,7 +29,7 @@ Form_tool, Window_tool = uic.loadUiType("interf_tool.ui")
 window_tool = Window_tool()
 form_tool = Form_tool()
 form_tool.setupUi(window_tool)
-#graphicsInterfTool(form_tool, window_tool, size)
+graphicsInterfTool(form_tool, window_tool, size)
 window_tool.show()
 
 #----------------------------------------------создание окна предупреждения
