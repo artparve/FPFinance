@@ -22,7 +22,25 @@ form_all = Form_all()
 form_all.setupUi(window_all)
 window_all.show()
 graphicsInterfShow(form_all, window_all, size)
-window_all.hide()
+
+#заглядываем в базу данных
+try:
+    file = pd.read_csv('my_by.csv')
+except IOError as e:
+    form_all.textEdit.append('Информации пока нет(')
+else:
+	data = file[file['date'] == form_all.calendarWidget.selectedDate().toString('yyyy MM dd')]
+	if len(data) == 0:
+		form_all.textEdit.append('Информации пока нет(')
+	else:
+		form_all.textEdit.append(f'{form_all.calendarWidget.selectedDate().toString("dd MMM yyyy")} Вы добавили:')
+		for t in data['type'].unique():
+			form_all.textEdit.append(f'{t}:')
+			for d in list(data[data['type']== t]['amount']):
+				form_all.textEdit.append(f'{d} руб.')
+
+
+window_all.show()
 
 #----------------------------------------------создание окна настроек
 Form_tool, Window_tool = uic.loadUiType("interf_tool.ui")
@@ -30,21 +48,4 @@ window_tool = Window_tool()
 form_tool = Form_tool()
 form_tool.setupUi(window_tool)
 graphicsInterfTool(form_tool, window_tool, size)
-window_tool.show()
-
-#----------------------------------------------создание окна предупреждения
-Form_w, Window_w = uic.loadUiType("warning.ui")
-window_w = Window_w()
-form_w = Form_w()
-form_w.setupUi(window_w)
-graphicsInterfW(window_w, size)
-window_w.hide()
-
-#----------------------------------------------создание окна добавления дохода
-Form_inc, Window_inc = uic.loadUiType("interf_income.ui")
-window_inc = Window_inc()
-form_inc = Form_inc()
-form_inc.setupUi(window_inc)
-#graphicsInterfInc(form_inc, window_inc, size)
-window_inc.hide()
-#------------------------------------------------
+window_tool.hide()

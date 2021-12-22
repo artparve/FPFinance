@@ -24,12 +24,6 @@ form.show_all_button.clicked.connect(on_click_show)
 form.toolButton.clicked.connect(on_click_tool)
 form.enter_purchase_button_2.clicked.connect(on_click_change)
 
-#-------------------------------------------действия в окне добавления дохода
-form_inc.enter_income_button.clicked.connect(on_click_enter_purchase)
-form_inc.show_all_button.clicked.connect(on_click_show)
-form_inc.toolButton.clicked.connect(on_click_tool)
-
-
 #-------------------------------------------действия в окне с календарем
 #form_all.add_income_button.clicked.connect(on_click_income)
 form_all.add_purchase_button.clicked.connect(on_click_purchase)

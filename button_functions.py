@@ -23,16 +23,31 @@ columns= ['type','card','income','amount', 'date', 'd', 'm', 'y', 'comment']
 #-------------------------------------------переход к окну просмотра календаря
 def on_click_show():
 	window.hide()
-	window_inc.hide()
 	window_tool.hide()
 	window_all.show()
+
+	#заглядываем в базу данных
+	try:
+	    file = pd.read_csv('my_by.csv')
+	except IOError as e:
+	    form_all.textEdit.append('Информации пока нет(')
+	else:
+		data = file[file['date'] == form_all.calendarWidget.selectedDate().toString('yyyy MM dd')]
+		if len(data) == 0:
+			form_all.textEdit.append('Информации пока нет(')
+		else:
+			form_all.textEdit.append(f'{form_all.calendarWidget.selectedDate().toString("dd MMM yyyy")} Вы добавили:')
+			for t in data['type'].unique():
+				form_all.textEdit.append(f'{t}:')
+				for d in list(data[data['type']== t]['amount']):
+					form_all.textEdit.append(f'{d} руб.')
+	 
 	
 	print("You clicked Show All")
 
 #-------------------------------------------переход в окно добавления
 def on_click_purchase():
 	window_all.hide()
-	window_inc.hide()
 	window_tool.hide()
 	window.show()
 
@@ -41,8 +56,8 @@ def on_click_purchase():
 	    file = pd.read_csv('my_by.csv')
 	except IOError as e:
 	    print(u'не удалось найти файл, так что создадим его')
-	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'base', 0, 0, 0, ''], \
-	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'user', 0, 0, 0, '']], columns=columns)
+	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'base', 0, 0, 0, ''], \
+	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'user', 0, 0, 0, '']], columns=columns)
 	else:
 		user = (file[file["date"] == "user"].values)[0]
 		form.income_list.clear()
@@ -68,7 +83,6 @@ def on_click_purchase():
 def on_click_tool():
 	window_all.hide()
 	window.hide()
-	window_inc.hide()
 	window_tool.show()
 
 	#обновление из базы
@@ -76,8 +90,8 @@ def on_click_tool():
 	    file = pd.read_csv('my_by.csv')
 	except IOError as e:
 	    print(u'не удалось найти файл, так что создадим его')
-	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'base', 0, 0, 0, ''], 
-	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'user', 0, 0, 0, '']], columns=columns)
+	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'base', 0, 0, 0, ''], 
+	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'user', 0, 0, 0, '']], columns=columns)
 	else:
 		user = (file[file["date"] == "user"].values)[0]
 
@@ -113,7 +127,7 @@ def on_click_enter_purchase():
 	except IOError as e:
 	    print(u'не удалось найти файл, так что создадим его')
 	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'base', 0, 0, 0, ''], 
-	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'user', 0, 0, 0, '']], columns=columns)
+	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'user', 0, 0, 0, '']], columns=columns)
 	else:
 		print('файл уже существует')
 
@@ -176,8 +190,8 @@ def on_click_enter_income():
 	    file = pd.read_csv('my_by.csv')
 	except IOError as e:
 	    print(u'не удалось найти файл, так что создадим его')
-	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'base', 0, 0, 0, ''], 
-	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'user', 0, 0, 0, '']], columns=columns)
+	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'base', 0, 0, 0, ''], 
+	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'user', 0, 0, 0, '']], columns=columns)
 	else:
 		print('файл уже существует')
 
@@ -304,8 +318,8 @@ def add_new_item():
 	    file = pd.read_csv('my_by.csv')
 	except IOError as e:
 	    print(u'не удалось найти файл, так что создадим его')
-	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'base', 0, 0, 0, ''], 
-	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'user', 0, 0, 0, '']], columns=columns)
+	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'base', 0, 0, 0, ''], 
+	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'user', 0, 0, 0, '']], columns=columns)
 	else:
 		print(f'файл уже существует: \n{file}')
 
@@ -339,8 +353,8 @@ def add_new_card():
 	    file = pd.read_csv('my_by.csv')
 	except IOError as e:
 	    print(u'не удалось найти файл, так что создадим его')
-	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'base', 0, 0, 0, ''], 
-	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'user', 0, 0, 0, '']], columns=columns)
+	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'base', 0, 0, 0, ''], 
+	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'user', 0, 0, 0, '']], columns=columns)
 	else:
 		print(f'файл уже существует: \n{file}')
 
@@ -373,8 +387,8 @@ def add_new_income():
 	    file = pd.read_csv('my_by.csv')
 	except IOError as e:
 	    print(u'не удалось найти файл, так что создадим его')
-	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'base', 0, 0, 0, ''], 
-	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'user', 0, 0, 0, '']], columns=columns)
+	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'base', 0, 0, 0, ''], 
+	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'user', 0, 0, 0, '']], columns=columns)
 	else:
 		print(f'файл уже существует: \n{file}')
 
@@ -406,8 +420,8 @@ def delete_useless_item():
 	    file = pd.read_csv('my_by.csv')
 	except IOError as e:
 	    print(u'не удалось найти файл, так что создадим его')
-	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'base', 0, 0, 0, ''], 
-	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1', 'Зарплата', 0, 'user', 0, 0, 0, '']], columns=columns)
+	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'base', 0, 0, 0, ''], 
+	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'user', 0, 0, 0, '']], columns=columns)
 	else:
 		print(f'файл уже существует: \n{file}')
 

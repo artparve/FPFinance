@@ -95,7 +95,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Выберите тип и карту</string>
+     <string>Выберите тип покупки и карту</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
