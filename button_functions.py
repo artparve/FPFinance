@@ -259,9 +259,8 @@ def on_click_change():
 #--------------------------------------нажатие на календарь во втором окне (работает)
 def on_click_calendar():
 	
-	form_all.textEdit.undo()
+	form_all.textEdit.clear()
 
-	print(form_all.textEdit.text())
 	#заглядываем в базу данных
 	try:
 	    file = pd.read_csv('my_by.csv')
@@ -275,8 +274,9 @@ def on_click_calendar():
 			form_all.textEdit.append(f'{form_all.calendarWidget.selectedDate().toString("dd MMM yyyy")} Вы добавили:')
 			for t in data['type'].unique():
 				form_all.textEdit.append(f'{t}:')
-				for d in list(data[data['type']== t]['amount']):
-					form_all.textEdit.append(f'{d} руб.')
+				for d in list(data[data['type']== t]):
+					print(d)
+					form_all.textEdit.append(f"{d[1]}: {d[3]} руб.")
 	 
 	print("You clicked Calendar")
 #---------------------------------------------------------
