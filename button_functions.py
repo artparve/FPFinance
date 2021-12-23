@@ -98,6 +98,16 @@ def on_click_tool():
 		form_tool.income_list.addItems(user[2].split('|'))
 		form_tool.item_list.clear()
 		form_tool.item_list.addItems(user[0].split('|'))
+
+	form_tool.label_6.setStyleSheet("font-weight:family; color: black; font-family: Segoe Print;")
+	form_tool.card_list.setText('Введите новую карту')
+	form_tool.card_list.setStyleSheet("font-weight: family; color: black; font-family: Segoe Print;")
+	form_tool.card_list_2.setText('Введите новый источник дохода')
+	form_tool.card_list_2.setStyleSheet("font-weight: family; color: black; font-family: Segoe Print;")
+	form_tool.label_3.setText('Введите новый тип')
+	form_tool.label_3.setStyleSheet("font-weight: family; color: black; font-family: Segoe Print;")
+
+
 	 
 	print("You clicked tool")
 #-------------------
@@ -269,7 +279,7 @@ def on_click_calendar():
 	print("You clicked Calendar")
 #-----------------------
 
-#--------------------------------------нажатие на на кнопку "Доходы" -
+#--------------------------------------нажатие на на кнопку "Доходы" +
 def on_click_graph_inc():
 
 	#заглядываем в базу данных
@@ -297,7 +307,7 @@ def on_click_graph_inc():
 	print("You clicked Доходы")
 #------------------------
 
-#--------------------------------------нажатие на на кнопку "Расходы" -
+#--------------------------------------нажатие на на кнопку "Расходы" +
 def on_click_graph_purch():
 	#заглядываем в базу данных
 	file = pd.read_csv('my_by.csv')
@@ -336,23 +346,28 @@ def on_click_graph_purch():
 def add_new_item():
 	new = form_tool.add_item_field.text()
 
+	
 	#заглядываем в базу данных
 	file = pd.read_csv('my_by.csv')
 
 	user = (file[file["date"] == "user"].values)[0]
 	if new in user[0]:
+		form_tool.label_3.setText('Такой уже есть')
+		form_tool.label_3.setStyleSheet("font-weight:bold; color: red; font-family: Segoe Print;")
 		form_tool.add_item_field.clear()
-		form_tool.add_item_field.insert('Такой уже есть')
 	else:
 		print(f'{user} -> {type(user)}')
 		user[0] = user[0] + f'|{new}'
 		file[file["date"] == "user"] = user
 		print(user)
 		file.to_csv('my_by.csv', index=False)
-	form_tool.item_list.clear()
-	form.item_list.clear()
-	form_tool.item_list.addItems(user[0].split('|'))
-	form.item_list.addItems(user[0].split('|'))
+		form_tool.item_list.clear()
+		form.item_list.clear()
+		form_tool.item_list.addItems(user[0].split('|'))
+		form.item_list.addItems(user[0].split('|'))
+		form_tool.label_3.setText('Введите новый тип')
+		form_tool.label_3.setStyleSheet("font-weight: family; color: black; font-family: Segoe Print;")
+		form_tool.add_item_field.clear()
 
 	print("You added a new item")
 #------------------
@@ -361,24 +376,28 @@ def add_new_item():
 def add_new_card():
 		
 	new = form_tool.add_card_field.text()
-
+	# card_list
 	#заглядываем в базу данных
 	file = pd.read_csv('my_by.csv')
 
 	user = (file[file["date"] == "user"].values)[0]
 	if new in user[1]:
+		form_tool.card_list.setText('Такой уже есть')
+		form_tool.card_list.setStyleSheet("font-weight:bold; color: red; font-family: Segoe Print;")
 		form_tool.add_card_field.clear()
-		form_tool.add_card_field.insert('Такой уже есть')
 	else:
 		print(f'{user} -> {type(user)}')
 		user[1] = user[1] + f'|{new}'
 		file[file["date"] == "user"] = user
 		print(user)
 		file.to_csv('my_by.csv', index=False)
-	form_tool.list_card.clear()
-	form.card_list.clear()
-	form.card_list.addItems(user[1].split('|'))
-	form_tool.list_card.addItems(user[1].split('|'))
+		form_tool.list_card.clear()
+		form.card_list.clear()
+		form.card_list.addItems(user[1].split('|'))
+		form_tool.list_card.addItems(user[1].split('|'))
+		form_tool.card_list.setText('Введите новую карту')
+		form_tool.card_list.setStyleSheet("font-weight: family; color: black; font-family: Segoe Print;")
+		form_tool.add_card_field.clear()
 
 	print("You added a new card")
 #------------------
@@ -387,14 +406,15 @@ def add_new_card():
 def add_new_income():
 	
 	new = form_tool.add_income_field.text()
-	
+	# card_list_2
 	#заглядываем в базу данных
 	file = pd.read_csv('my_by.csv')
 	
 	user = (file[file["date"] == "user"].values)[0]
 	if new in user[2]:
+		form_tool.card_list_2.setText('Такой уже есть')
+		form_tool.card_list_2.setStyleSheet("font-weight:bold; color: red; font-family: Segoe Print;")
 		form_tool.add_income_field.clear()
-		form_tool.add_income_field.insert('Такой уже есть')
 	else:
 		print(f'{user} -> {type(user)}')
 		user[2] = user[2] + f'|{new}'
@@ -403,34 +423,40 @@ def add_new_income():
 		file.to_csv('my_by.csv', index=False)
 		form_tool.add_income_field.clear()
 
-	form_tool.income_list.clear()
-	form.income_list.clear()
-	form_tool.income_list.addItems(user[2].split('|'))
-	form.income_list.addItems(user[2].split('|'))
+		form_tool.income_list.clear()
+		form.income_list.clear()
+		form_tool.income_list.addItems(user[2].split('|'))
+		form.income_list.addItems(user[2].split('|'))
+		form_tool.card_list_2.setText('Введите новый источник дохода')
+		form_tool.card_list_2.setStyleSheet("font-weight: family; color: black; font-family: Segoe Print;")
+		form_tool.add_income_field.clear()
 
 	print("You added a new income")
 #--------------------
 
 #--------------------------------------нажатие на на кнопку "Удалить" тип -
 def delete_useless_item():
-
 	#заглядываем в базу данных
 	file = pd.read_csv('my_by.csv')
+	user = (file[file["date"] == "user"].values)[0]
+	l = user[0].split('|')
 
-	# user = (file[file["date"] == "user"].values)[0]
-	# if new in user[0]:
-	# 	form_tool.add_item_field.clear()
-	# 	form_tool.add_item_field.insert('Такой уже есть')
-	# else:
-	# 	print(f'{user} -> {type(user)}')
-	# 	user[0] = user[0] + f'|{new}'
-	# 	file[file["date"] == "user"] = user
-	# 	print(user)
-	# 	file.to_csv('my_by.csv', index=False)
-	# form_tool.item_list.clear()
-	# form.item_list.clear()
-	# form_tool.item_list.addItems(user[0].split('|'))
-	# form.item_list.addItems(user[0].split('|'))
+	if form_tool.item_list.selectedItems() == []:
+		form_tool.label_6.setStyleSheet("font-weight:bold; color: red; font-family: Segoe Print;")
+	else:
+		d = list(form_tool.item_list.selectedItems())[0].text()
+		l.remove(d)
+		print('|'.join(l))
+		user[0] = '|'.join(l)
+		file[file["date"] == "user"] = user
+		print(user)
+		file.to_csv('my_by.csv', index=False)
+
+		form_tool.item_list.clear()
+		form.item_list.clear()
+		form_tool.item_list.addItems(user[0].split('|'))
+		form.item_list.addItems(user[0].split('|'))
+		form_tool.label_6.setStyleSheet("font-weight:family; color: black; font-family: Segoe Print;")
 
 	print(f"You deleted an item {1}")
 #------------------
@@ -440,49 +466,59 @@ def delete_useless_card():
 
 	#заглядываем в базу данных
 	file = pd.read_csv('my_by.csv')
+	user = (file[file["date"] == "user"].values)[0]
+	l = user[1].split('|')
+	
 
-	# user = (file[file["date"] == "user"].values)[0]
-	# if new in user[1]:
-	# 	form_tool.add_card_field.clear()
-	# 	form_tool.add_card_field.insert('Такой уже есть')
-	# else:
-	# 	print(f'{user} -> {type(user)}')
-	# 	user[1] = user[1] + f'|{new}'
-	# 	file[file["date"] == "user"] = user
-	# 	print(user)
-	# 	file.to_csv('my_by.csv', index=False)
-	# form_tool.list_card.clear()
-	# form.card_list.clear()
-	# form.card_list.addItems(user[1].split('|'))
-	# form_tool.list_card.addItems(user[1].split('|'))
+	if form_tool.list_card.selectedItems() == []:
+		form_tool.label_5.setStyleSheet("font-weight:bold; color: red; font-family: Segoe Print;")
+	else:
+		d = list(form_tool.list_card.selectedItems())[0].text()
+		l.remove(d)
+		print('|'.join(l))
+		user[1] = '|'.join(l)
+		file[file["date"] == "user"] = user
+		print(user)
+		file.to_csv('my_by.csv', index=False)
+
+		form_tool.list_card.clear()
+		form.card_list.clear()
+		form_tool.list_card.addItems(user[1].split('|'))
+		form.card_list.addItems(user[1].split('|'))
+		form_tool.label_5.setStyleSheet("font-weight:family; color: black; font-family: Segoe Print;")
 
 	print(f"You deleted a card {1}")
 #------------------
 
 #--------------------------------------нажатие на на кнопку "Удалить" источник дохода -
 def delete_useless_income():
-	
-	new = form_tool.add_income_field.text()
+	# card_list_3
 	
 	#заглядываем в базу данных
 	file = pd.read_csv('my_by.csv')
+	user = (file[file["date"] == "user"].values)[0]
+	l = user[2].split('|')
 	
-	# user = (file[file["date"] == "user"].values)[0]
-	# if new in user[2]:
-	# 	form_tool.add_income_field.clear()
-	# 	form_tool.add_income_field.insert('Такой уже есть')
-	# else:
-	# 	print(f'{user} -> {type(user)}')
-	# 	user[2] = user[2] + f'|{new}'
-	# 	file[file["date"] == "user"] = user
-	# 	print(user)
-	# 	file.to_csv('my_by.csv', index=False)
-	# 	form_tool.add_income_field.clear()
 
-	# form_tool.income_list.clear()
-	# form.income_list.clear()
-	# form_tool.income_list.addItems(user[2].split('|'))
-	# form.income_list.addItems(user[2].split('|'))
+	if form_tool.income_list.selectedItems() == []:
+		form_tool.card_list_3.setStyleSheet("font-weight:bold; color: red; font-family: Segoe Print;")
+	else:
+
+		d = list(form_tool.income_list.selectedItems())[0].text()
+		l.remove(d)
+
+		print('|'.join(l))
+		user[2] = '|'.join(l)
+		file[file["date"] == "user"] = user
+		print(user)
+		file.to_csv('my_by.csv', index=False)
+
+		form_tool.income_list.clear()
+		form.income_list.clear()
+		form_tool.income_list.addItems(user[2].split('|'))
+		form.income_list.addItems(user[2].split('|'))
+		form_tool.card_list_3.setStyleSheet("font-weight:family; color: black; font-family: Segoe Print;")
+
 
 	print(f"You deleted an income {1}")
 #--------------------

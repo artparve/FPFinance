@@ -40,7 +40,6 @@ else:
 			form_all.textEdit.append(f'{t}:')
 			print(len(data[data['type']== t]))
 			for i in range(len(data[data['type']== t])):
-				print(i)
 				form_all.textEdit.append(f"{list(data[data['type']== t]['card'])[i]}: {list(data[data['type']== t]['amount'])[i]} руб.")
 
 window_all.show()
