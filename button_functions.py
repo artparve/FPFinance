@@ -217,7 +217,7 @@ def on_click_enter_income():
 
 	#добавление если введено число и дата
 	if text.isnumeric() and new_data[4] != 0 :
-		new_data[3] = -int(text)
+		new_data[3] = int(text)
 		file = file.append(pd.DataFrame([new_data], columns=columns))
 		file.to_csv('my_by.csv', index=False)
 
