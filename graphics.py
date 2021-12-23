@@ -8,7 +8,7 @@ def graphicsInterfBoth(form, window, size):
 	form.label.setGeometry(QtCore.QRect(w * 0.35, 10, w * 0.3, 100))
 	
 	form.label_2.setGeometry(QtCore.QRect(w * 0.2, h * 0.15, w * 0.2, 50))
-	form.label_3.setGeometry(QtCore.QRect(w * 0.2, h * 0.3, w * 0.2, 50))
+	form.label_3.setGeometry(QtCore.QRect(w * 0.1, h * 0.3, w * 0.4, 50))
 	form.enter_purchase_button.setGeometry(QtCore.QRect(w * 0.15, h * 0.75, w * 0.3, 70))
 	form.enter_purchase_button_2.setGeometry(QtCore.QRect(w * 0.15, h * 0.85, w * 0.3, 70))
 	form.lineEdit.setGeometry(QtCore.QRect(w * 0.2, h * 0.2, w * 0.2, 50))
@@ -72,7 +72,7 @@ def graphicsInterfTool(form, window, size):
 	form.card_list_6.setGeometry(QtCore.QRect(w * 0.4, h * 0.76, w * 0.2, 50))
 	
 	form.menubar.setGeometry(QtCore.QRect(0, 0, 800, 18))#?????
-	form.show_all_button.setGeometry(QtCore.QRect(w * 0.6, h * 0.83, 550, 100))
+	form.show_all_button.setGeometry(QtCore.QRect(w * 0.4, h * 0.83, w * 0.2, 100))
 
 
 def graphicsInterfW(window, size):

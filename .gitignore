@@ -1,5 +1,7 @@
 #Игнорирование локальных баз данных
 *.csv
+*.jpg
+
 __pycache__/
 
 Presentation/
