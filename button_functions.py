@@ -24,27 +24,11 @@ columns= ['type','card','income','amount', 'date', 'd', 'm', 'y', 'comment']
 def on_click_show():
 	window.hide()
 	window_tool.hide()
+	on_click_calendar()
 	window_all.show()
 
-	#заглядываем в базу данных
-	try:
-	    file = pd.read_csv('my_by.csv')
-	except IOError as e:
-	    form_all.textEdit.append('Информации пока нет(')
-	else:
-		data = file[file['date'] == form_all.calendarWidget.selectedDate().toString('yyyy MM dd')]
-		if len(data) == 0:
-			form_all.textEdit.clear()
-			form_all.textEdit.append('Информации пока нет(')
-		else:
-			form_all.textEdit.append(f'{form_all.calendarWidget.selectedDate().toString("dd MMM yyyy")} Вы добавили:')
-			for t in data['type'].unique():
-				form_all.textEdit.append(f'{t}:')
-				for d in list(data[data['type']== t]['amount']):
-					form_all.textEdit.append(f'{d} руб.')
-	 
-	
-	print("You clicked Show All")
+	print("You clicked Show Alllll")
+#-------------------
 
 #-------------------------------------------переход в окно добавления
 def on_click_purchase():
@@ -79,6 +63,7 @@ def on_click_purchase():
 	form.label_2.setText('Введите сумму')
 
 	print("You clicked Add")
+#-----------------------
 
 #-------------------------------------------переход в окно настроек
 def on_click_tool():
@@ -104,33 +89,24 @@ def on_click_tool():
 		form_tool.item_list.addItems(user[0].split('|'))
 	 
 	print("You clicked tool")
-#--------------------------------------------------------------
+#-------------------
 
-#Кнопки окна добавления
 
-#-----------------------------------------------нажатие на кнопку  "Add" (добавление)
-def on_click_enter_purchase():
+#Кнопки окна ДОБАВЛЕНИЯ
+#-----------------------------------------------нажатие на кнопку  "Добавить ..."
+def on_click_enter():
 	if form.label_3.text() == 'Выберите тип покупки и карту':
 		on_click_enter_purchase()
 	else:
 		on_click_enter_income()
+#-----------------------------
 
-
-#-----------------------------------------------нажатие на кнопку  "Add_Purchase" (добавление покупок)
+#-----------------------------------------------нажатие на кнопку  "Добавить покупку" +
 def on_click_enter_purchase():
 	text = form.lineEdit.text()
 	date = form.calendarWidget.selectedDate()
 	columns= ['type','card','income','amount', 'date', 'd', 'm', 'y', 'comment']
-
-	#создаем базу данных
-	try:
-		file = pd.read_csv('my_by.csv')
-	except IOError as e:
-	    print(u'не удалось найти файл, так что создадим его')
-	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'base', 0, 0, 0, ''], 
-	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'user', 0, 0, 0, '']], columns=columns)
-	else:
-		print('файл уже существует')
+	file = pd.read_csv('my_by.csv')
 
 	print(file['type'][0])
 	#заполняем базу данных
@@ -142,7 +118,6 @@ def on_click_enter_purchase():
 	else:
 		new_data[0] =  form.item_list.selectedItems()[0].text()
 
-
 	if form.card_list.selectedItems() == []:
 		new_data[1] = 'Другое'
 	else:
@@ -152,20 +127,27 @@ def on_click_enter_purchase():
 	if date == '':
 		form.label_3.clear()
 		form.label_3.setText('ВЫБЕРИТЕ ДАТУ')
+		form.label_3.setStyleSheet("font-weight: bold; color: red")
 	else:
 		new_data[4] = date.toString('yyyy MM dd')
 		new_data[5] = date.day()
 		new_data[6] = date.month()
 		new_data[7] = date.year()
 	
-	#добавление если введено число
+	#добавление если введено число и дата
 	if text.isnumeric() and new_data[4] != 0 :
 		new_data[3] = -int(text)
 		file = file.append(pd.DataFrame([new_data], columns=columns))
 		file.to_csv('my_by.csv', index=False)
+
 		form.label_2.clear()
 		form.label_2.setStyleSheet("font-weight: family; color: black")
 		form.label_2.setText('Введите сумму')
+
+		form.label_2.clear()
+		form.label_3.setStyleSheet("font-weight: family; color: black")
+		form.label_2.setText('Выберите дату')
+		
 	elif form.label_3.text() != 'ВЫБЕРИТЕ ДАТУ':
 		form.label_2.clear()
 		form.label_2.setStyleSheet("font-weight: bold; color: red")
@@ -173,28 +155,17 @@ def on_click_enter_purchase():
 
 	form.lineEdit.clear()
 
-
-	
 	print(f'file:\n{file}')
-	print("You clicked ok")
-#------------------------------------------------------	
+	print("You clicked Добавить покупку")
+#-----------------------------
 
-
-#-----------------------------------------------нажатие на кнопку  "Add_income" (добавление дохода)
+#-----------------------------------------------нажатие на кнопку  "Добавить доход" +
 def on_click_enter_income():
 	text = form.lineEdit.text()
 	date = form.calendarWidget.selectedDate()
 	columns= ['type','card','income','amount', 'date', 'd', 'm', 'y', 'comment']
+	file = pd.read_csv('my_by.csv')
 
-	#создаем базу данных
-	try:
-	    file = pd.read_csv('my_by.csv')
-	except IOError as e:
-	    print(u'не удалось найти файл, так что создадим его')
-	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'base', 0, 0, 0, ''], 
-	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'user', 0, 0, 0, '']], columns=columns)
-	else:
-		print('файл уже существует')
 
 	print(file['type'][0])
 	#заполняем базу данных
@@ -236,9 +207,9 @@ def on_click_enter_income():
 	
 	print(f'file:\n{file}')
 	print("You clicked ok")
-#---------------------------------------------------------
+#---------------------------
 
-#-----------------------------------------------нажатие на кнопку  "Поменять"
+#-----------------------------------------------нажатие на кнопку  "Поменять" +
 def on_click_change():
 	if form.label_3.text() == 'Выберите тип покупки и карту':
 		form.label_3.clear()
@@ -253,77 +224,61 @@ def on_click_change():
 		form.item_list.show()
 		form.income_list.hide()	
 	print("You clicked Change")
-#---------------------------------------------------------
+#---------------------
 
-#Кнопки окна календаря
-#--------------------------------------нажатие на календарь во втором окне (работает)
+
+#Кнопки ГЛАВНОГО окна
+#--------------------------------------нажатие на календарь во втором окне +
 def on_click_calendar():
 	
 	form_all.textEdit.clear()
 
 	#заглядываем в базу данных
-	try:
-	    file = pd.read_csv('my_by.csv')
-	except IOError as e:
-	    form_all.textEdit.append('Информации пока нет(')
+	file = pd.read_csv('my_by.csv')
+	
+	data = file[file['date'] == form_all.calendarWidget.selectedDate().toString('yyyy MM dd')]
+	if len(data) == 0:
+		form_all.textEdit.append('Информации пока нет(')
 	else:
-		data = file[file['date'] == form_all.calendarWidget.selectedDate().toString('yyyy MM dd')]
-		if len(data) == 0:
-			form_all.textEdit.append('Информации пока нет(')
-		else:
-			form_all.textEdit.append(f'{form_all.calendarWidget.selectedDate().toString("dd MMM yyyy")} Вы добавили:')
-			for t in data['type'].unique():
-				form_all.textEdit.append(f'{t}:')
-				for d in list(data[data['type']== t]):
-					print(d)
-					form_all.textEdit.append(f"{d[1]}: {d[3]} руб.")
+		form_all.textEdit.append(f'{form_all.calendarWidget.selectedDate().toString("dd MMM yyyy")} Вы добавили:')
+		for t in data['type'].unique():
+			form_all.textEdit.append(f'{t}:')
+			print(len(data[data['type']== t]))
+			for i in range(len(data[data['type']== t])):
+				print(i)
+				form_all.textEdit.append(f"{list(data[data['type']== t]['card'])[i]}: {list(data[data['type']== t]['amount'])[i]} руб.")
 	 
 	print("You clicked Calendar")
-#---------------------------------------------------------
+#-----------------------
 
-#--------------------------------------нажатие на календарь во втором окне (работает)
-def on_click_clendar():
-	
-	form_all.textEdit.clear()
-	
+#--------------------------------------нажатие на на кнопку "Доходы" -
+def on_click_graph_inc():
 	#заглядываем в базу данных
-	try:
-	    file = pd.read_csv('my_by.csv')
-	except IOError as e:
-	    form_all.textEdit.append('Информации пока нет(')
-	else:
-		data = file[file['date'] == form_all.calendarWidget.selectedDate().toString('yyyy MM dd')]
-		if len(data) == 0:
-			form_all.textEdit.append('Информации пока нет(')
-		else:
-			form_all.textEdit.append(f'{form_all.calendarWidget.selectedDate().toString("dd MMM yyyy")} Вы добавили:')
-			for t in data['type'].unique():
-				form_all.textEdit.append(f'{t}:')
-				for d in list(data[data['type']== t]['amount']):
-					form_all.textEdit.append(f'{d} руб.')
+	file = pd.read_csv('my_by.csv')
+	
+	
 	 
-	print("You clicked Calendar")
-#---------------------------------------------------------
+	print("You clicked Доходы")
+#------------------------
 
-#Кнопки окна настроек
+#--------------------------------------нажатие на на кнопку "Расходы" -
+def on_click_graph_purch():
+	#заглядываем в базу данных
+	file = pd.read_csv('my_by.csv')
+	
+	data = file[file['date'] == form_all.calendarWidget.selectedDate().toString('yyyy MM dd')]
+		 
+	print("You clicked Расходы")
+#--------------------------
 
-#---------------------------------------------------------
-#form_tool.add_income_button.clicked.connect(on_click_show)
+#Кнопки окна НАСТРОЕК
+
+#--------------------------------------нажатие на на кнопку "Добавить" новый тип +
 def add_new_item():
 	new = form_tool.add_item_field.text()
-	columns= ['type','card','income','amount', 'date', 'd', 'm', 'y', 'comment']
 
-	
 	#заглядываем в базу данных
-	#создаем базу данных
-	try:
-	    file = pd.read_csv('my_by.csv')
-	except IOError as e:
-	    print(u'не удалось найти файл, так что создадим его')
-	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'base', 0, 0, 0, ''], 
-	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'user', 0, 0, 0, '']], columns=columns)
-	else:
-		print(f'файл уже существует: \n{file}')
+	file = pd.read_csv('my_by.csv')
 
 	user = (file[file["date"] == "user"].values)[0]
 	if new in user[0]:
@@ -341,24 +296,15 @@ def add_new_item():
 	form.item_list.addItems(user[0].split('|'))
 
 	print("You added a new item")
-	
-#form_tool.add_card_button.clicked.connect(on_click_show)
+#------------------
+
+#--------------------------------------нажатие на на кнопку "Добавить" новую карту +
 def add_new_card():
 		
 	new = form_tool.add_card_field.text()
-	columns= ['type','card','income','amount', 'date', 'd', 'm', 'y', 'comment']
 
-	
 	#заглядываем в базу данных
-	#создаем базу данных
-	try:
-	    file = pd.read_csv('my_by.csv')
-	except IOError as e:
-	    print(u'не удалось найти файл, так что создадим его')
-	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'base', 0, 0, 0, ''], 
-	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'user', 0, 0, 0, '']], columns=columns)
-	else:
-		print(f'файл уже существует: \n{file}')
+	file = pd.read_csv('my_by.csv')
 
 	user = (file[file["date"] == "user"].values)[0]
 	if new in user[1]:
@@ -376,24 +322,16 @@ def add_new_card():
 	form_tool.list_card.addItems(user[1].split('|'))
 
 	print("You added a new card")
-#form_tool.add_item_button.clicked.connect(on_click_show)
+#------------------
+
+#--------------------------------------нажатие на на кнопку "Добавить" новый источник дохода +
 def add_new_income():
 	
 	new = form_tool.add_income_field.text()
-	columns= ['type','card','income','amount', 'date', 'd', 'm', 'y', 'comment']
-
 	
 	#заглядываем в базу данных
-	#создаем базу данных
-	try:
-	    file = pd.read_csv('my_by.csv')
-	except IOError as e:
-	    print(u'не удалось найти файл, так что создадим его')
-	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'base', 0, 0, 0, ''], 
-	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'user', 0, 0, 0, '']], columns=columns)
-	else:
-		print(f'файл уже существует: \n{file}')
-
+	file = pd.read_csv('my_by.csv')
+	
 	user = (file[file["date"] == "user"].values)[0]
 	if new in user[2]:
 		form_tool.add_income_field.clear()
@@ -404,101 +342,92 @@ def add_new_income():
 		file[file["date"] == "user"] = user
 		print(user)
 		file.to_csv('my_by.csv', index=False)
+		form_tool.add_income_field.clear()
+
 	form_tool.income_list.clear()
 	form.income_list.clear()
 	form_tool.income_list.addItems(user[2].split('|'))
 	form.income_list.addItems(user[2].split('|'))
 
 	print("You added a new income")
-#form_tool.delete_income_button.clicked.connect(on_click_show)
+#--------------------
+
+#--------------------------------------нажатие на на кнопку "Удалить" тип -
 def delete_useless_item():
-	new = form_tool.add_item_field.text()
-	columns= ['type','card','income','amount', 'date', 'd', 'm', 'y', 'comment']
 
-	
 	#заглядываем в базу данных
-	#создаем базу данных
-	try:
-	    file = pd.read_csv('my_by.csv')
-	except IOError as e:
-	    print(u'не удалось найти файл, так что создадим его')
-	    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'base', 0, 0, 0, ''], 
-	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'user', 0, 0, 0, '']], columns=columns)
-	else:
-		print(f'файл уже существует: \n{file}')
+	file = pd.read_csv('my_by.csv')
 
-	user = (file[file["date"] == "user"].values)[0]
-	if new in user[0]:
-		form_tool.add_item_field.clear()
-		form_tool.add_item_field.insert('Такой уже есть')
-	else:
-		print(f'{user} -> {type(user)}')
-		user[0] = user[0] + f'|{new}'
-		file[file["date"] == "user"] = user
-		print(user)
-		file.to_csv('my_by.csv', index=False)
-	form_tool.item_list.clear()
-	form.item_list.clear()
-	form_tool.item_list.addItems(user[0].split('|'))
-	form.item_list.addItems(user[0].split('|'))
+	# user = (file[file["date"] == "user"].values)[0]
+	# if new in user[0]:
+	# 	form_tool.add_item_field.clear()
+	# 	form_tool.add_item_field.insert('Такой уже есть')
+	# else:
+	# 	print(f'{user} -> {type(user)}')
+	# 	user[0] = user[0] + f'|{new}'
+	# 	file[file["date"] == "user"] = user
+	# 	print(user)
+	# 	file.to_csv('my_by.csv', index=False)
+	# form_tool.item_list.clear()
+	# form.item_list.clear()
+	# form_tool.item_list.addItems(user[0].split('|'))
+	# form.item_list.addItems(user[0].split('|'))
 
-	print("You added a new item")
-	
-	
-#form_tool.delete_item_button.clicked.connect(on_click_show)
+	print(f"You deleted an item {1}")
+#------------------
 
-def delete_useless_income():
-		for i in form_tool.item_list.selectedItems():
-			print(i.text())
-		
-
-
-def delete_useless_incme():
-	
-	for i in range(len(tags)-1):
-		if form.item_list.item(i).isSelected() == True:
-			new_data[0] = tags[i]
-	form_all.textEdit.clear()
-	
-	#заглядываем в базу данных
-	try:
-	    file = pd.read_csv('my_by.csv')
-	except IOError as e:
-	    form_all.textEdit.append('Информации пока нет(')
-	else:
-		data = file[file['date'] == form_all.calendarWidget.selectedDate().toString('yyyy MM dd')]
-		if len(data) == 0:
-			form_all.textEdit.append('Информации пока нет(')
-		else:
-			form_all.textEdit.append(f'{form_all.calendarWidget.selectedDate().toString("dd MMM yyyy")} Вы добавили:')
-			for t in data['type'].unique():
-				form_all.textEdit.append(f'{t}:')
-				for d in list(data[data['type']== t]['amount']):
-					form_all.textEdit.append(f'{d} руб.')
-	 
-	print("You clicked Calendar")
-#form_tool.delete_card_button.clicked.connect(on_click_show)
+#--------------------------------------нажатие на на кнопку "Удалить" карту -
 def delete_useless_card():
+
+	#заглядываем в базу данных
+	file = pd.read_csv('my_by.csv')
+
+	# user = (file[file["date"] == "user"].values)[0]
+	# if new in user[1]:
+	# 	form_tool.add_card_field.clear()
+	# 	form_tool.add_card_field.insert('Такой уже есть')
+	# else:
+	# 	print(f'{user} -> {type(user)}')
+	# 	user[1] = user[1] + f'|{new}'
+	# 	file[file["date"] == "user"] = user
+	# 	print(user)
+	# 	file.to_csv('my_by.csv', index=False)
+	# form_tool.list_card.clear()
+	# form.card_list.clear()
+	# form.card_list.addItems(user[1].split('|'))
+	# form_tool.list_card.addItems(user[1].split('|'))
+
+	print(f"You deleted a card {1}")
+#------------------
+
+#--------------------------------------нажатие на на кнопку "Удалить" источник дохода -
+def delete_useless_income():
 	
-	form_all.textEdit.clear()
+	new = form_tool.add_income_field.text()
 	
 	#заглядываем в базу данных
-	try:
-	    file = pd.read_csv('my_by.csv')
-	except IOError as e:
-	    form_all.textEdit.append('Информации пока нет(')
-	else:
-		data = file[file['date'] == form_all.calendarWidget.selectedDate().toString('yyyy MM dd')]
-		if len(data) == 0:
-			form_all.textEdit.append('Информации пока нет(')
-		else:
-			form_all.textEdit.append(f'{form_all.calendarWidget.selectedDate().toString("dd MMM yyyy")} Вы добавили:')
-			for t in data['type'].unique():
-				form_all.textEdit.append(f'{t}:')
-				for d in list(data[data['type']== t]['amount']):
-					form_all.textEdit.append(f'{d} руб.')
-	 
-	print("You clicked Calendar")
+	file = pd.read_csv('my_by.csv')
+	
+	# user = (file[file["date"] == "user"].values)[0]
+	# if new in user[2]:
+	# 	form_tool.add_income_field.clear()
+	# 	form_tool.add_income_field.insert('Такой уже есть')
+	# else:
+	# 	print(f'{user} -> {type(user)}')
+	# 	user[2] = user[2] + f'|{new}'
+	# 	file[file["date"] == "user"] = user
+	# 	print(user)
+	# 	file.to_csv('my_by.csv', index=False)
+	# 	form_tool.add_income_field.clear()
+
+	# form_tool.income_list.clear()
+	# form.income_list.clear()
+	# form_tool.income_list.addItems(user[2].split('|'))
+	# form.income_list.addItems(user[2].split('|'))
+
+	print(f"You deleted an income {1}")
+#--------------------
+
 
 
 

@@ -19,7 +19,7 @@ from PyQt5.QtWidgets import QApplication
 
 #Действия
 #-------------------------------------------действия в окне добавления покупок
-form.enter_purchase_button.clicked.connect(on_click_enter_purchase)
+form.enter_purchase_button.clicked.connect(on_click_enter)
 form.show_all_button.clicked.connect(on_click_show)
 form.toolButton.clicked.connect(on_click_tool)
 form.enter_purchase_button_2.clicked.connect(on_click_change)

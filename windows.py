@@ -2,7 +2,6 @@ import pandas as pd
 from PyQt5 import uic, QtWidgets
 from PyQt5.QtWidgets import QApplication
 from graphics import *
-
 #Создание окон
 #---------------------------------------------создание окна добавления покупок
 Form, Window = uic.loadUiType("interf_both.ui")
@@ -20,19 +19,28 @@ Form_all, Window_all = uic.loadUiType("interf_show_graph.ui")
 window_all = Window_all()
 form_all = Form_all()
 form_all.setupUi(window_all)
-window_all.show()
 graphicsInterfShow(form_all, window_all, size)
-columns= ['type','card','income','amount', 'date', 'd', 'm', 'y', 'comment']
-#обновление из базы
+
+#создаем или подгружаем базу данных
 try:
     file = pd.read_csv('my_by.csv')
 except IOError as e:
-    print(u'не удалось найти файл, так что создадим его')
-    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'base', 0, 0, 0, ''], \
-    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'user', 0, 0, 0, '']], columns=columns)
+    form_all.textEdit.append('Информации пока нет(')
+    file = pd.DataFrame([['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'base', 0, 0, 0, ''], 
+	    	['Транспорт|Продукты|Комуналка|Другое', 'Карта 1|Другое', 'Зарплата|Другое', 0, 'user', 0, 0, 0, '']], columns=columns)
     file.to_csv('my_by.csv', index=False)
 else:
-	print('база уже есть')
+	data = file[file['date'] == form_all.calendarWidget.selectedDate().toString('yyyy MM dd')]
+	if len(data) == 0:
+		form_all.textEdit.append('Информации пока нет(')
+	else:
+		form_all.textEdit.append(f'{form_all.calendarWidget.selectedDate().toString("dd MMM yyyy")} Вы добавили:')
+		for t in data['type'].unique():
+			form_all.textEdit.append(f'{t}:')
+			print(len(data[data['type']== t]))
+			for i in range(len(data[data['type']== t])):
+				print(i)
+				form_all.textEdit.append(f"{list(data[data['type']== t]['card'])[i]}: {list(data[data['type']== t]['amount'])[i]} руб.")
 
 window_all.show()
 
