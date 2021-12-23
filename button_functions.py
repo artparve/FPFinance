@@ -60,13 +60,18 @@ def on_click_purchase():
 
 	form.enter_purchase_button.setText('Добавить покупку')
 
+
 	form.label_3.clear()
+	form.label_2.setStyleSheet("font-weight:family; color: black; font-family: Segoe Print;")
 	form.label_3.setText('Выберите тип покупки и карту')
 
 	form.label_4.clear()
 	form.label_4.setText('Выберите дату')
+	form.label_2.setStyleSheet("font-weight:family; color: black; font-family: Segoe Print;")
+
 	form.label_2.clear()
 	form.label_2.setText('Введите сумму')
+	form.label_2.setStyleSheet("font-weight:family; color: black; font-family: Segoe Print;")
 
 	print("You clicked Add")
 #-----------------------
@@ -147,16 +152,16 @@ def on_click_enter_purchase():
 		file.to_csv('my_by.csv', index=False)
 
 		form.label_2.clear()
-		form.label_2.setStyleSheet("font-weight: family; color: black")
+		form.label_2.setStyleSheet("font-weight:family; color: black; font-family: Segoe Print;")
 		form.label_2.setText('Введите сумму')
 
-		form.label_2.clear()
-		form.label_3.setStyleSheet("font-weight: family; color: black")
-		form.label_2.setText('Выберите дату')
+		form.label_4.clear()
+		form.label_4.setStyleSheet("font-weight: family; color: black; font-family: Segoe Print;")
+		form.label_4.setText('Выберите дату')
 		
 	elif form.label_3.text() != 'ВЫБЕРИТЕ ДАТУ':
 		form.label_2.clear()
-		form.label_2.setStyleSheet("font-weight: bold; color: red")
+		form.label_2.setStyleSheet("font-weight: bold; color: red; font-family: Segoe Print;")
 		form.label_2.setText('Надо число')
 
 	form.lineEdit.clear()
@@ -197,19 +202,27 @@ def on_click_enter_income():
 		new_data[5] = date.day()
 		new_data[6] = date.month()
 		new_data[7] = date.year()
-	
-	#добавление если введено число
+
+	#добавление если введено число и дата
 	if text.isnumeric() and new_data[4] != 0 :
-		new_data[3] = int(text)
+		new_data[3] = -int(text)
 		file = file.append(pd.DataFrame([new_data], columns=columns))
 		file.to_csv('my_by.csv', index=False)
+
 		form.label_2.clear()
-		form.label_2.setStyleSheet("font-weight: family; color: black")
+		form.label_2.setStyleSheet("font-weight:family; color: black; font-family: Segoe Print;")
 		form.label_2.setText('Введите сумму')
+
+		form.label_4.clear()
+		form.label_4.setStyleSheet("font-weight: family; color: black; font-family: Segoe Print;")
+		form.label_4.setText('Выберите дату')
+		
 	elif form.label_3.text() != 'ВЫБЕРИТЕ ДАТУ':
 		form.label_2.clear()
-		form.label_2.setStyleSheet("font-weight: bold; color: red")
+		form.label_2.setStyleSheet("font-weight: bold; color: red; font-family: Segoe Print;")
 		form.label_2.setText('Надо число')
+
+	form.lineEdit.clear()
 	
 	print(f'file:\n{file}')
 	print("You clicked ok")
