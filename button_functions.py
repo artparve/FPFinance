@@ -12,15 +12,16 @@
 
 # sys.exit(app.exec_())
 
-from PyQt5 import uic
+from PyQt5 import uic, QtGui, QtWidgets
+from PyQt5.QtGui import QPixmap
 import pandas as pd
 from windows import *
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QApplication, QGraphicsItem, QGraphicsScene, QGraphicsView
 
 columns= ['type','card','income','amount', 'date', 'd', 'm', 'y', 'comment']
 
 #Общие кнопки
-#-------------------------------------------переход к окну просмотра календаря
+#-------------------------------------------переход к окну просмотра календаря +
 def on_click_show():
 	window.hide()
 	window_tool.hide()
@@ -30,7 +31,7 @@ def on_click_show():
 	print("You clicked Show Alllll")
 #-------------------
 
-#-------------------------------------------переход в окно добавления
+#-------------------------------------------переход в окно добавления +
 def on_click_purchase():
 	window_all.hide()
 	window_tool.hide()
@@ -65,7 +66,7 @@ def on_click_purchase():
 	print("You clicked Add")
 #-----------------------
 
-#-------------------------------------------переход в окно настроек
+#-------------------------------------------переход в окно настроек +
 def on_click_tool():
 	window_all.hide()
 	window.hide()
@@ -93,7 +94,7 @@ def on_click_tool():
 
 
 #Кнопки окна ДОБАВЛЕНИЯ
-#-----------------------------------------------нажатие на кнопку  "Добавить ..."
+#-----------------------------------------------нажатие на кнопку  "Добавить ..." + 
 def on_click_enter():
 	if form.label_3.text() == 'Выберите тип покупки и карту':
 		on_click_enter_purchase()
@@ -253,10 +254,37 @@ def on_click_calendar():
 
 #--------------------------------------нажатие на на кнопку "Доходы" -
 def on_click_graph_inc():
+
+	size_s = str(form_all.graphic.size())
+	coef = min(int(size_s[-4:-1]), int(size_s[-9:-6]))/ max(int(size_s[-4:-1]), int(size_s[-9:-6]))
+	
+
 	#заглядываем в базу данных
 	file = pd.read_csv('my_by.csv')
+	data = file[file['type'] == '0'][file['m'] == form_all.calendarWidget.selectedDate().month()]
+	print(f'data:\n{data}')
+	data = data.groupby(['income']).sum()
 	
+	data.plot.pie(y = 'amount', ylabel = '', title = f'Общий баланс: {file[file["m"] == form_all.calendarWidget.selectedDate().month()]["amount"].sum()}', legend = False, ).get_figure().savefig('test.jpg')
+	# img = data.plot.pie(y = '', ylabel = '', legend = False).get_figure().savefig('test.jpg')
 	
+	# pix = QPixmap('test.jpg')
+	# item = QtWidgets.QGraphicsPixmapItem(pix)
+	# form_all.graphic.setScene(QtWidgets.QGraphicsScene().addItem(item))	
+
+	
+	scene = QtWidgets.QGraphicsScene()
+	pixmap = QPixmap('test.jpg')
+	print(pixmap.size())
+	coef = int(str(pixmap.size())[-4:-1])/ int(str(pixmap.size())[-9:-6])
+	pixmap = pixmap.scaled(coef*int(str(pixmap.size())[-9:-6]), coef*int(str(pixmap.size())[-4:-1]), QtCore.Qt.KeepAspectRatio)
+	item = QtWidgets.QGraphicsPixmapItem(pixmap)
+	scene.addItem(item)
+	form_all.graphic.setScene(scene)
+  
+  	
+
+	form_all.graphic.show()
 	 
 	print("You clicked Доходы")
 #------------------------
@@ -267,6 +295,8 @@ def on_click_graph_purch():
 	file = pd.read_csv('my_by.csv')
 	
 	data = file[file['date'] == form_all.calendarWidget.selectedDate().toString('yyyy MM dd')]
+
+
 		 
 	print("You clicked Расходы")
 #--------------------------

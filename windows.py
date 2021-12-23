@@ -20,6 +20,7 @@ window_all = Window_all()
 form_all = Form_all()
 form_all.setupUi(window_all)
 graphicsInterfShow(form_all, window_all, size)
+columns= ['type','card','income','amount', 'date', 'd', 'm', 'y', 'comment']
 
 #создаем или подгружаем базу данных
 try:

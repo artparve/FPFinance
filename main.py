@@ -29,6 +29,7 @@ form.enter_purchase_button_2.clicked.connect(on_click_change)
 form_all.add_purchase_button.clicked.connect(on_click_purchase)
 form_all.calendarWidget.clicked.connect(on_click_calendar)
 form_all.toolButton.clicked.connect(on_click_tool)
+form_all.graph_income_button.clicked.connect(on_click_graph_inc)
 
 #-------------------------------------------действия в окне настроек
 form_tool.show_all_button.clicked.connect(on_click_show)
