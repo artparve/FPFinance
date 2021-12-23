@@ -106,6 +106,8 @@ def on_click_tool():
 	form_tool.card_list_2.setStyleSheet("font-weight: family; color: black; font-family: Segoe Print;")
 	form_tool.label_3.setText('Введите новый тип')
 	form_tool.label_3.setStyleSheet("font-weight: family; color: black; font-family: Segoe Print;")
+	form_tool.label_5.setStyleSheet("font-weight:family; color: black; font-family: Segoe Print;")
+	form_tool.card_list_3.setStyleSheet("font-weight:family; color: black; font-family: Segoe Print;")
 
 
 	 
