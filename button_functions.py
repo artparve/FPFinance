@@ -26,6 +26,8 @@ def on_click_show():
 	window.hide()
 	window_tool.hide()
 	on_click_calendar()
+	scene = QtWidgets.QGraphicsScene()
+	form_all.graphic.setScene(scene)
 	window_all.show()
 
 	print("You clicked Show Alllll")
@@ -55,6 +57,9 @@ def on_click_purchase():
 
 	form.item_list.show()
 	form.income_list.hide()
+
+	form.enter_purchase_button.setText('Добавить покупку')
+
 	form.label_3.clear()
 	form.label_3.setText('Выберите тип покупки и карту')
 
@@ -246,7 +251,6 @@ def on_click_calendar():
 			form_all.textEdit.append(f'{t}:')
 			print(len(data[data['type']== t]))
 			for i in range(len(data[data['type']== t])):
-				print(i)
 				form_all.textEdit.append(f"{list(data[data['type']== t]['card'])[i]}: {list(data[data['type']== t]['amount'])[i]} руб.")
 	 
 	print("You clicked Calendar")
@@ -255,10 +259,6 @@ def on_click_calendar():
 #--------------------------------------нажатие на на кнопку "Доходы" -
 def on_click_graph_inc():
 
-	size_s = str(form_all.graphic.size())
-	coef = min(int(size_s[-4:-1]), int(size_s[-9:-6]))/ max(int(size_s[-4:-1]), int(size_s[-9:-6]))
-	
-
 	#заглядываем в базу данных
 	file = pd.read_csv('my_by.csv')
 	data = file[file['type'] == '0'][file['m'] == form_all.calendarWidget.selectedDate().month()]
@@ -266,12 +266,7 @@ def on_click_graph_inc():
 	data = data.groupby(['income']).sum()
 	
 	data.plot.pie(y = 'amount', ylabel = '', title = f'Общий баланс: {file[file["m"] == form_all.calendarWidget.selectedDate().month()]["amount"].sum()}', legend = False, ).get_figure().savefig('test.jpg')
-	# img = data.plot.pie(y = '', ylabel = '', legend = False).get_figure().savefig('test.jpg')
 	
-	# pix = QPixmap('test.jpg')
-	# item = QtWidgets.QGraphicsPixmapItem(pix)
-	# form_all.graphic.setScene(QtWidgets.QGraphicsScene().addItem(item))	
-
 	
 	scene = QtWidgets.QGraphicsScene()
 	pixmap = QPixmap('test.jpg')
@@ -294,7 +289,28 @@ def on_click_graph_purch():
 	#заглядываем в базу данных
 	file = pd.read_csv('my_by.csv')
 	
-	data = file[file['date'] == form_all.calendarWidget.selectedDate().toString('yyyy MM dd')]
+	#заглядываем в базу данных
+	file = pd.read_csv('my_by.csv')
+	data = file[file['income'] == '0'][file['m'] == form_all.calendarWidget.selectedDate().month()]
+	data['amount'] = data['amount'].apply(lambda x: -x)
+	print(f'data:\n{data}')
+	data = data.groupby(['type']).sum()
+	
+	data.plot.pie(y = 'amount', ylabel = '', title = f'Общий баланс: {file[file["m"] == form_all.calendarWidget.selectedDate().month()]["amount"].sum()}', legend = False, ).get_figure().savefig('test.jpg')
+	
+	
+	scene = QtWidgets.QGraphicsScene()
+	pixmap = QPixmap('test.jpg')
+	print(pixmap.size())
+	coef = int(str(pixmap.size())[-4:-1])/ int(str(pixmap.size())[-9:-6])
+	pixmap = pixmap.scaled(coef*int(str(pixmap.size())[-9:-6]), coef*int(str(pixmap.size())[-4:-1]), QtCore.Qt.KeepAspectRatio)
+	item = QtWidgets.QGraphicsPixmapItem(pixmap)
+	scene.addItem(item)
+	form_all.graphic.setScene(scene)
+  
+  	
+
+	form_all.graphic.show()
 
 
 		 
