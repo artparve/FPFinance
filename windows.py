@@ -36,11 +36,16 @@ else:
 		form_all.textEdit.append('Информации пока нет(')
 	else:
 		form_all.textEdit.append(f'{form_all.calendarWidget.selectedDate().toString("dd MMM yyyy")} Вы добавили:')
-		for t in data['type'].unique():
+		for t in data[data['type'] != '0']['type'].unique():
 			form_all.textEdit.append(f'{t}:')
 			print(len(data[data['type']== t]))
 			for i in range(len(data[data['type']== t])):
 				form_all.textEdit.append(f"{list(data[data['type']== t]['card'])[i]}: {list(data[data['type']== t]['amount'])[i]} руб.")
+		for t in data[data['income'] != '0']['income'].unique():
+			form_all.textEdit.append(f'{t}:')
+			print(len(data[data['income']== t]))
+			for i in range(len(data[data['income']== t])):
+				form_all.textEdit.append(f"{list(data[data['income']== t]['card'])[i]}: {list(data[data['income']== t]['amount'])[i]} руб.")
 
 window_all.show()
 

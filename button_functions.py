@@ -272,11 +272,16 @@ def on_click_calendar():
 		form_all.textEdit.append('Информации пока нет(')
 	else:
 		form_all.textEdit.append(f'{form_all.calendarWidget.selectedDate().toString("dd MMM yyyy")} Вы добавили:')
-		for t in data['type'].unique():
+		for t in data[data['type'] != '0']['type'].unique():
 			form_all.textEdit.append(f'{t}:')
 			print(len(data[data['type']== t]))
 			for i in range(len(data[data['type']== t])):
 				form_all.textEdit.append(f"{list(data[data['type']== t]['card'])[i]}: {list(data[data['type']== t]['amount'])[i]} руб.")
+		for t in data[data['income'] != '0']['income'].unique():
+			form_all.textEdit.append(f'{t}:')
+			print(len(data[data['income']== t]))
+			for i in range(len(data[data['income']== t])):
+				form_all.textEdit.append(f"{list(data[data['income']== t]['card'])[i]}: {list(data[data['income']== t]['amount'])[i]} руб.")
 	 
 	print("You clicked Calendar")
 #-----------------------
@@ -290,8 +295,14 @@ def on_click_graph_inc():
 	print(f'data:\n{data}')
 	data = data.groupby(['income']).sum()
 	
-	data.plot.pie(y = 'amount', ylabel = '', title = f'Общий баланс: {file[file["m"] == form_all.calendarWidget.selectedDate().month()]["amount"].sum()}', legend = False, ).get_figure().savefig('test.jpg')
-	
+	def make_autopct(values):
+		def my_autopct(pct):
+			total = sum(values)
+			val = int(round(pct*total/100.0))
+			return f'{pct:.2f}% ({val:d})'
+		return my_autopct
+
+	data.plot.pie(y = 'amount', ylabel = '', title = f'Общий баланс: {file[file["m"] == form_all.calendarWidget.selectedDate().month()]["amount"].sum()}', legend = False, autopct=make_autopct(list(data['amount']))).get_figure().savefig('test.jpg')
 	
 	scene = QtWidgets.QGraphicsScene()
 	pixmap = QPixmap('test.jpg')
@@ -321,8 +332,14 @@ def on_click_graph_purch():
 	print(f'data:\n{data}')
 	data = data.groupby(['type']).sum()
 	
-	data.plot.pie(y = 'amount', ylabel = '', title = f'Общий баланс: {file[file["m"] == form_all.calendarWidget.selectedDate().month()]["amount"].sum()}', legend = False, ).get_figure().savefig('test.jpg')
-	
+	def make_autopct(values):
+		def my_autopct(pct):
+			total = sum(values)
+			val = int(round(pct*total/100.0))
+			return f'{pct:.2f}% ({val:d})'
+		return my_autopct
+
+	data.plot.pie(y = 'amount', ylabel = '', title = f'Общий баланс: {file[file["m"] == form_all.calendarWidget.selectedDate().month()]["amount"].sum()}', legend = False, autopct=make_autopct(list(data['amount']))).get_figure().savefig('test.jpg')
 	
 	scene = QtWidgets.QGraphicsScene()
 	pixmap = QPixmap('test.jpg')
@@ -436,7 +453,7 @@ def add_new_income():
 	print("You added a new income")
 #--------------------
 
-#--------------------------------------нажатие на на кнопку "Удалить" тип -
+#--------------------------------------нажатие на на кнопку "Удалить" тип +
 def delete_useless_item():
 	#заглядываем в базу данных
 	file = pd.read_csv('my_by.csv')
@@ -463,7 +480,7 @@ def delete_useless_item():
 	print(f"You deleted an item {1}")
 #------------------
 
-#--------------------------------------нажатие на на кнопку "Удалить" карту -
+#--------------------------------------нажатие на на кнопку "Удалить" карту +
 def delete_useless_card():
 
 	#заглядываем в базу данных
@@ -492,7 +509,7 @@ def delete_useless_card():
 	print(f"You deleted a card {1}")
 #------------------
 
-#--------------------------------------нажатие на на кнопку "Удалить" источник дохода -
+#--------------------------------------нажатие на на кнопку "Удалить" источник дохода +
 def delete_useless_income():
 	# card_list_3
 	
