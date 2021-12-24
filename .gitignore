@@ -3,6 +3,7 @@
 *.jpg
 *.mkv
 *.pptx
+*.mp4
 
 __pycache__/
 
